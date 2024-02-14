@@ -7,9 +7,27 @@
 
 import AVFoundation
 import UIKit
+import Vision
 
 
 class ViewController: UIViewController {
+    
+    // Custom text label for view
+    let label: UILabel = {
+       let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.backgroundColor = .lightGray
+        return label
+    }()
+    
+    // Custom image frame for view
+    let imageView: UIImageView = {
+       let imageView = UIImageView()
+//        imageView.image = UIImage(named: "example3") // Insert image here
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
     // Capture Session
     var session: AVCaptureSession?
@@ -46,6 +64,52 @@ class ViewController: UIViewController {
         shutterButton.center = CGPoint(x: view.frame.size.width/2,
                                        y: view.frame.size.height - 200)
         //Maybe change to 100?
+        
+        imageView.frame = CGRect(x: 20,
+                                 y: view.safeAreaInsets.top,
+                                 width: view.frame.size.width-40,
+                                 height: view.frame.size.width-40)
+        
+        label.frame = CGRect(x: 20,
+                             y: view.frame.size.width + view.safeAreaInsets.top,
+                             width: view.frame.size.width-40,
+                             height: 200)
+    }
+    
+    private func recognizeText(image: UIImage?) {
+        
+        // Guard valid input image and get cgImage, else return
+        guard let cgImage = image?.cgImage else {fatalError("Could not get cgImage!")}
+        
+        // Create handler:
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        
+        // Create request:
+        // 1. Get observed image info out of the request
+        // 2. cast as VNRecognizedTextObservation and catch any errors
+        let request = VNRecognizeTextRequest{[weak self] request, error in
+            guard let observations = request.results as? [VNRecognizedTextObservation],
+                    error == nil else {
+                return
+            }
+            
+            // Get text string from VNRecognizedTextObservation object
+            
+            // Vision will try to segment text, so text may contain multiple text observations
+            let text = observations.compactMap({$0.topCandidates(1).first?.string}).joined(separator: ", ")
+            
+            DispatchQueue.main.async {
+                self?.label.text = text
+            }
+        }
+        
+        // Process request
+        do {
+            try handler.perform([request])
+        }
+        catch {
+            label.text = "\(error)"
+        }
     }
     
     private func checkCameraPermissions() {
@@ -111,12 +175,19 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             return
         }
         let image = UIImage(data: data)
-        
         session?.stopRunning()
         
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFill // Avoid distortion maintain ratio
-        imageView.frame = view.bounds
+//        let imageView = UIImageView(image: image)
+        
+        // Now, add text and picture to subview
+        imageView.image = image
+        view.addSubview(label)
         view.addSubview(imageView)
+
+        recognizeText(image: image);
+        
+//        imageView.contentMode = .scaleAspectFill // Avoid distortion maintain ratio
+//        imageView.frame = view.bounds
+//        view.addSubview(imageView)
     }
 }
