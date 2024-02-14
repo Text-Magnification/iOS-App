@@ -20,11 +20,11 @@ class ViewController: UIViewController {
                                                     //feed session
     // Shutter Button
     private let shutterButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         //Change width and height to 100?
-        button.layer.cornerRadius = 50 //MODIFY FOR SHUTTER 50?
+        button.layer.cornerRadius = 75 //MODIFY FOR SHUTTER 50?
         button.layer.borderWidth = 10
-        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderColor = UIColor.brown.cgColor
         return button
     }()
 
