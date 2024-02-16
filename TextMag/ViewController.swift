@@ -13,7 +13,7 @@ import Vision
 class ViewController: UIViewController {
     
     // Custom text label for view
-    let label: UILabel = {
+    private let label: UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -38,9 +38,9 @@ class ViewController: UIViewController {
                                                     //feed session
     // Shutter Button
     private let shutterButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         //Change width and height to 100?
-        button.layer.cornerRadius = 75 //MODIFY FOR SHUTTER 50?
+        button.layer.cornerRadius = 50 //MODIFY FOR SHUTTER 50?
         button.layer.borderWidth = 10
         button.layer.borderColor = UIColor.brown.cgColor
         return button
@@ -175,6 +175,10 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             return
         }
         let image = UIImage(data: data)
+        
+        // Hide the camera preview and the shutter before we stop the AV session
+        previewLayer.isHidden = true
+        shutterButton.isHidden = true
         session?.stopRunning()
         
 //        let imageView = UIImageView(image: image)
@@ -184,7 +188,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         view.addSubview(label)
         view.addSubview(imageView)
 
-        recognizeText(image: image);
+        recognizeText(image: image)
         
 //        imageView.contentMode = .scaleAspectFill // Avoid distortion maintain ratio
 //        imageView.frame = view.bounds
