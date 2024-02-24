@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct MagnifierView: View {
+    @StateObject private var viewModel = AppViewModel()
+
     var body: some View {
-        Text("Magnify Development in progress")
+        jContentView()
+            .environmentObject(viewModel)
+            .task {
+                await viewModel.requestDataScannerAccessStatus() // Invoked on app launch
+            }
+
+//        jContentView()
+//            .environmentObject(viewModel)
+//            .onAppear {
+//                // Request camera and scanner access when the view appears
+//                task {
+//                    await viewModel.requestDataScannerAccessStatus() // Invoked on app launch
+//                }
+//            }
     }
 }
 

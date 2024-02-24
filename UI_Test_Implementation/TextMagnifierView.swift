@@ -30,6 +30,7 @@ struct TextMagnifierView: View {
                 
                 GeometryReader { geometry in
                     VStack(spacing: 8) { //Adjust as needed
+                        
                         Button(action: {
                             print("MAGNIFY SELECTED")
                         }) {
@@ -39,17 +40,19 @@ struct TextMagnifierView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(height: 50)
-                                    Text("Translate Image")
-                                        .foregroundColor(.white)
+                                    Text("Let's go!")
+                                        .foregroundColor(.black)
                                         .font(Font.navTitle)
                                 }
                             }
                             .frame(width: 350, height: 100)
-                            .background(Color.purple)
+                            .background(.mint)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
+            
+                        
                         Button(action: {
                             print("TUTORIAL SELECTED")
                             // Construct the URL object
@@ -64,15 +67,16 @@ struct TextMagnifierView: View {
                                     .scaledToFit()
                                     .frame(height: 40)
                                 Text("Tutorial")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                     .font(Font.navTitle)
                             }
                             .frame(width: 350, height: 100)
-                            .background(Color.purple)
+                            .background(.gray)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
+                        
                     }
                     
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

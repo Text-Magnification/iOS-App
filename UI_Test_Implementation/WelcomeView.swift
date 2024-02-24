@@ -31,16 +31,22 @@ struct WelcomeView: View {
                     .ignoresSafeArea()
             
                 GeometryReader { geometry in
+                    Spacer()
                     VStack(spacing: 8) { // Adjust spacing as needed
-                        Text("Welcome To")
-                            .font(Font.welcomeText)
-                            .foregroundColor(.black)
-                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
-                        
+                        Spacer()
                         Text("TextMag")
                             .font(Font.welcomeText)
                             .foregroundColor(.black)
-                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
+                            .bold()
+//                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
+                        
+                        Text("v1.0.0-alpha")
+                            .font(Font.welcomeTextSmall)
+                            .foregroundColor(.black)
+                            .bold()
+//                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
+                        
+                        Spacer()
                         
                         Button(action: {
                             self.selectedTab = 1
@@ -51,14 +57,15 @@ struct WelcomeView: View {
                                     .scaledToFit()
                                     .frame(height: 50)
                                 Text("Continue")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                     .font(Font.navTitle)
+                                    .bold()
                             }
                                 .frame(width: 350, height: 100)
                                 .background(Color.purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
-                                .cornerRadius(10)
+                                .cornerRadius(15)
                         }
                         
                         Button(action: {
@@ -70,17 +77,19 @@ struct WelcomeView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(height: 50)
-                                    Text("Learn More!")
-                                        .foregroundColor(.white)
+                                    Text("About")
+                                        .foregroundColor(.black)
                                         .font(Font.navTitle)
+                                        .bold()
                                 }
                             }
                                 .frame(width: 350, height: 100)
                                 .background(Color.purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
-                                .cornerRadius(10)
+                                .cornerRadius(15)
                         }
+                        Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 }

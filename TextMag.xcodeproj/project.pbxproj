@@ -27,6 +27,9 @@
 		6A41D6BC2B83274400CA1437 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41D6BB2B83274400CA1437 /* WelcomeView.swift */; };
 		6A41D6BE2B8529D800CA1437 /* DeveloperInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41D6BD2B8529D800CA1437 /* DeveloperInfoView.swift */; };
 		6A41D6C02B865AF700CA1437 /* MagnifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */; };
+		B212F0BB2B89B13100A4CAA8 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0B92B89B13100A4CAA8 /* ScannerView.swift */; };
+		B212F0BC2B89B13100A4CAA8 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0B82B89B13100A4CAA8 /* AppViewModel.swift */; };
+		B212F0BF2B89B2A500A4CAA8 /* jContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0BE2B89B2A500A4CAA8 /* jContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		6A41D6BB2B83274400CA1437 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		6A41D6BD2B8529D800CA1437 /* DeveloperInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoView.swift; sourceTree = "<group>"; };
 		6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnifierView.swift; sourceTree = "<group>"; };
+		B212F0B82B89B13100A4CAA8 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		B212F0B92B89B13100A4CAA8 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		B212F0BE2B89B2A500A4CAA8 /* jContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = jContentView.swift; path = ../../../../Desktop/jContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,10 @@
 		6A41D6792B82CEF800CA1437 /* UI_Test_Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				B212F0B82B89B13100A4CAA8 /* AppViewModel.swift */,
+				B212F0B92B89B13100A4CAA8 /* ScannerView.swift */,
+				B212F0BE2B89B2A500A4CAA8 /* jContentView.swift */,
+				6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */,
 				6A41D67A2B82CEF800CA1437 /* AppDelegate.swift */,
 				6A41D67C2B82CEF800CA1437 /* SceneDelegate.swift */,
 				6A41D67E2B82CEF800CA1437 /* ViewController.swift */,
@@ -137,7 +147,6 @@
 				6A41D6B92B83272A00CA1437 /* TextMagnifierView.swift */,
 				6A41D6BB2B83274400CA1437 /* WelcomeView.swift */,
 				6A41D6BD2B8529D800CA1437 /* DeveloperInfoView.swift */,
-				6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */,
 			);
 			path = UI_Test_Implementation;
 			sourceTree = "<group>";
@@ -247,7 +256,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6A41D6722B82CEF800CA1437 /* Build configuration list for PBXProject "UI_Test_Implementation" */;
+			buildConfigurationList = 6A41D6722B82CEF800CA1437 /* Build configuration list for PBXProject "TextMag" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -301,10 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B212F0BB2B89B13100A4CAA8 /* ScannerView.swift in Sources */,
 				6A41D6B82B8326FA00CA1437 /* ProfileView.swift in Sources */,
+				B212F0BF2B89B2A500A4CAA8 /* jContentView.swift in Sources */,
 				6A41D67F2B82CEF800CA1437 /* ViewController.swift in Sources */,
 				6A41D67B2B82CEF800CA1437 /* AppDelegate.swift in Sources */,
 				6A41D6B62B8326B900CA1437 /* SavedTextView.swift in Sources */,
+				B212F0BC2B89B13100A4CAA8 /* AppViewModel.swift in Sources */,
 				6A41D6B22B83265400CA1437 /* TaskListView.swift in Sources */,
 				6A41D6BC2B83274400CA1437 /* WelcomeView.swift in Sources */,
 				6A41D6B42B83267900CA1437 /* SettingsView.swift in Sources */,
@@ -489,7 +501,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2PKK9YGHP4;
+				DEVELOPMENT_TEAM = BVRBZ9F9JY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UI_Test_Implementation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -502,7 +514,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "danisk.UI-Test-Implementation";
+				PRODUCT_BUNDLE_IDENTIFIER = "lujust.UI-Test-Implementation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -517,7 +529,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2PKK9YGHP4;
+				DEVELOPMENT_TEAM = BVRBZ9F9JY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UI_Test_Implementation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -530,7 +542,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "danisk.UI-Test-Implementation";
+				PRODUCT_BUNDLE_IDENTIFIER = "lujust.UI-Test-Implementation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -617,7 +629,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A41D6722B82CEF800CA1437 /* Build configuration list for PBXProject "UI_Test_Implementation" */ = {
+		6A41D6722B82CEF800CA1437 /* Build configuration list for PBXProject "TextMag" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A41D69F2B82CEFB00CA1437 /* Debug */,

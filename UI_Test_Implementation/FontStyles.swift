@@ -12,22 +12,27 @@ extension Font {
     
     static var navTitle: Font {
         
-        return Font.custom("Inter-SemiBold", size: 17)
+        return Font.custom("Circular", size: 20)
     }
     
     static var welcomeText: Font {
         
-        return Font.custom("Inter-Italic", size: 40)
+        return Font.custom("Circular", size: 40)
+    }
+    
+    static var welcomeTextSmall: Font {
+        
+        return Font.custom("Circular", size: 25)
     }
     
     static var continueText: Font {
         
-        return Font.custom("Inter-SemiBold", size: 17)
+        return Font.custom("Circular", size: 20)
     }
     
-    static var learnText: Font {
+    static var aboutText: Font {
         
-        return Font.custom("Inter-SemiBold", size: 17)
+        return Font.custom("Circular", size: 20)
     }
     
     static var devTeamText: Font {
