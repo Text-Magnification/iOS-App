@@ -97,7 +97,7 @@ struct WelcomeView: View {
             
             .toolbar{
                 ToolbarItem(placement: .principal){
-                    Text("TextMag")
+                    Text("Home")
                         .font(Font.navTitle)
                         .foregroundColor(.white)
                 }

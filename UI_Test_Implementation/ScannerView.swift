@@ -42,7 +42,7 @@ struct DataScannerView: UIViewControllerRepresentable {
     
     
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
-        
+        @EnvironmentObject var sharedSettings: SharedSettings
         @Binding var recognizedItems: [RecognizedItem]
         var textOverlayViews: [UIView] = []
 
@@ -55,24 +55,28 @@ struct DataScannerView: UIViewControllerRepresentable {
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+            
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             recognizedItems.append(contentsOf: addedItems)
-//            print("didAddItems \(addedItems)")
+            
             
             DispatchQueue.main.async {
                 self.updateTextOverlays(in: dataScanner, with: allItems)
             }
+            
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+            
             self.recognizedItems = recognizedItems.filter { item in
                 !removedItems.contains(where: {$0.id == item.id })
             }
             
+            
             DispatchQueue.main.async {
                 self.updateTextOverlays(in: dataScanner, with: allItems)
             }
-//            print("didRemovedItems \(removedItems)")
+            
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: DataScannerViewController.ScanningUnavailable) {
@@ -85,6 +89,7 @@ struct DataScannerView: UIViewControllerRepresentable {
             removeTextOverlays()
 
             for item in recognizedItems {
+                
                 if case let .text(text) = item {
                     let boundingBox = self.convertBoundsToCGRect(text.bounds, in: dataScanner.view).insetBy(dx: -20, dy: -20)
                     let textView = UITextView(frame: boundingBox)

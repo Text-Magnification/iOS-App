@@ -17,7 +17,7 @@ extension Font {
     
     static var welcomeText: Font {
         
-        return Font.custom("Circular", size: 40)
+        return Font.custom("Circular", size: 40).bold()
     }
     
     static var welcomeTextSmall: Font {

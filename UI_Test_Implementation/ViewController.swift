@@ -47,28 +47,28 @@ struct ContentView: View{
                 TextMagnifierView()
             }
             .tabItem {
-                Image("ic-leaf")
+                Image("ic-magnifier")
                     .renderingMode(.template)
             }
             .tag(1) // TextMagnifierView tab
             
-            NavigationView(){
-                ProfileView()
-            }
-            .tabItem {
-                Image("ic-profile")
-                    .renderingMode(.template)
-            }
-            .tag(2)
-            
-            NavigationView{
-                SavedTextView()
-            }
-            .tabItem {
-                Image("ic-scribble")
-                    .renderingMode(.template)
-            }
-            .tag(3)
+//            NavigationView(){
+//                ProfileView()
+//            }
+//            .tabItem {
+//                Image("ic-profile")
+//                    .renderingMode(.template)
+//            }
+//            .tag(2)
+//            
+//            NavigationView{
+//                SavedTextView()
+//            }
+//            .tabItem {
+//                Image("ic-scribble")
+//                    .renderingMode(.template)
+//            }
+//            .tag(3)
             
             NavigationView(){
                 SettingsView()
@@ -77,7 +77,7 @@ struct ContentView: View{
                 Image("ic-gear")
                     .renderingMode(.template)
             }
-            .tag(4)
+            .tag(2)
         }
     }
 }

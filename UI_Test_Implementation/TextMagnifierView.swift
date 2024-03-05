@@ -51,7 +51,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
-            
+                        
                         
                         Button(action: {
                             print("TUTORIAL SELECTED")
@@ -79,13 +79,13 @@ struct TextMagnifierView: View {
                         
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                    
+                
                 }
             }
             
             .toolbar{
                 ToolbarItem(placement: .principal){
-                    Text("TextMag View")
+                    Text("Scan")
                         .font(Font.navTitle)
                         .foregroundColor(.white)
                 }

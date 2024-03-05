@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @EnvironmentObject var sharedSettings: SharedSettings
+    
     init() {
             // Customize navigation bar appearance
             let appearance = UINavigationBarAppearance()
@@ -23,12 +26,25 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            Color("Background")
+            Color(.white)
                 .ignoresSafeArea()
-            Text("Hello worlded")
+            
+            VStack(alignment: .leading, spacing: 20.0) {
+                
+                Toggle("Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
+                    
+                Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
+            }
+            .foregroundColor(.black)
+            .padding()
+            .background(Rectangle()
+                .foregroundColor(.white)
+                .cornerRadius(15)
+                .shadow(radius: 15))
+            .padding()
         }
         .toolbar{
-            ToolbarItem(placement: .principal){
+            ToolbarItem(placement: .principal) {
                 Text("Settings")
                     .font(Font.navTitle)
                     .foregroundColor(.white)
