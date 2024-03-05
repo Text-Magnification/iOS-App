@@ -46,7 +46,7 @@ struct TextMagnifierView: View {
                                 }
                             }
                             .frame(width: 350, height: 100)
-                            .background(.mint)
+                            .background(.purple)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)
@@ -78,7 +78,6 @@ struct TextMagnifierView: View {
                         }
                         
                     }
-                    
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                     
                 }

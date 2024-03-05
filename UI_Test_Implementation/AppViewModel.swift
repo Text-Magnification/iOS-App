@@ -35,14 +35,7 @@ final class AppViewModel: ObservableObject {
         scanType == .barcode ? .barcode() : .text(textContentType: textContentType)
     }
     
-    var headerText: String {
-        if recognizedItems.isEmpty {
-            return "Detected \(recognizedItems.count) item(s)"
-        }
-        return ""
-    }
-    
-      var dataScannerViewId: Int {
+    var dataScannerViewId: Int {
         var hasher = Hasher()
         hasher.combine(scanType)
         hasher.combine(recognizesMultipleItems)

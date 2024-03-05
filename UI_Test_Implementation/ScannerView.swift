@@ -18,7 +18,7 @@ struct DataScannerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> DataScannerViewController {
         let vc = DataScannerViewController(
             recognizedDataTypes: [recognizedDataType],
-            qualityLevel: .fast,
+            qualityLevel: .balanced,
             recognizesMultipleItems: recognizesMultipleItems,
             isGuidanceEnabled: true,
             isHighlightingEnabled: true
@@ -105,6 +105,36 @@ struct DataScannerView: UIViewControllerRepresentable {
                 }
             }
         }
+        
+        // Scrollable version (WIP)
+//        private func updateTextOverlays(in dataScanner: DataScannerViewController, with recognizedItems: [RecognizedItem]) {
+//            removeTextOverlays()
+//
+//            for item in recognizedItems {
+//                if case let .text(text) = item {
+//                    let boundingBox = self.convertBoundsToCGRect(text.bounds, in: dataScanner.view).insetBy(dx: -20, dy: -20)
+//                    let textView = UITextView(frame: boundingBox)
+//                    textView.backgroundColor = .clear
+//                    textView.text = text.transcript
+//                    textView.font = UIFont.systemFont(ofSize: calculateFontSize(for: textView, with: text.transcript))
+//                    textView.textAlignment = .center
+//                    textView.isEditable = false
+//                    textView.isScrollEnabled = true  // Ensure scrolling is enabled
+//                    textView.showsVerticalScrollIndicator = true
+//                    textView.showsHorizontalScrollIndicator = true  // Show scroll indicators as needed
+//                    textView.textContainer.lineBreakMode = .byWordWrapping
+//
+//                    // Adjust content inset if necessary, for padding within the scrollable area
+//                    textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//
+//                    let rotationAngle = self.calculateRotationAngle(for: text.bounds)
+//                    textView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+//
+//                    dataScanner.view.addSubview(textView)
+//                    textOverlayViews.append(textView)
+//                }
+//            }
+//        }
 
         func removeTextOverlays() {
             for view in textOverlayViews {
@@ -123,28 +153,60 @@ struct DataScannerView: UIViewControllerRepresentable {
             return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
         }
         
+//        private func calculateFontSize(for textView: UITextView, with text: String) -> CGFloat {
+//            
+//            // BASIC IMPLEMENTATION
+//            let maxSize = textView.frame.size
+//            
+//            var fontSize: CGFloat = 24 // Start with a default font size
+//
+//            let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
+//            
+//            let attributedText = NSAttributedString(string: text, attributes: textAttributes)
+//            
+//            let textRect = attributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+//
+//            // Reduce font size until the text fits within the bounding box
+//            while textRect.size.height > maxSize.height && fontSize > 10 { // Don't go below a minimum font size
+//                fontSize -= 1
+//                let newAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
+//                
+//                let newAttributedText = NSAttributedString(string: text, attributes: newAttributes)
+//                
+//                let newTextRect = newAttributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+//
+//                if newTextRect.size.height <= maxSize.height {
+//                    break
+//                }
+//            }
+//
+//            return fontSize
+//        }
+        
         private func calculateFontSize(for textView: UITextView, with text: String) -> CGFloat {
-            // This is a basic implementation. You may need a more sophisticated approach to handle different text lengths and bounding box sizes.
             let maxSize = textView.frame.size
             var fontSize: CGFloat = 24 // Start with a default font size
+            var fitsWithinBounds = false
 
-            let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
-            let attributedText = NSAttributedString(string: text, attributes: textAttributes)
-            let textRect = attributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            while fontSize > 10 && !fitsWithinBounds { // Don't go below a minimum font size of 10
+                let font = UIFont.systemFont(ofSize: fontSize)
+                let textAttributes: [NSAttributedString.Key: Any] = [.font: font]
+                let attributedText = NSAttributedString(string: text, attributes: textAttributes)
 
-            // Reduce font size until the text fits within the bounding box
-            while textRect.size.height > maxSize.height && fontSize > 10 { // Don't go below a minimum font size
-                fontSize -= 1
-                let newAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
-                let newAttributedText = NSAttributedString(string: text, attributes: newAttributes)
-                let newTextRect = newAttributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+                // Calculate the bounding rect for the attributed text, considering the maximum size
+                let textRect = attributedText.boundingRect(with: CGSize(width: maxSize.width, height: .greatestFiniteMagnitude),
+                                                           options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                                           context: nil)
 
-                if newTextRect.size.height <= maxSize.height {
-                    break
+                // Check if the calculated rect fits within the bounding box's height
+                if textRect.size.height <= maxSize.height && textRect.size.width <= maxSize.width {
+                    fitsWithinBounds = true
+                } else {
+                    fontSize -= 1 // Reduce the font size and try again
                 }
             }
 
-            return fontSize
+            return max(fontSize, 10) // Ensure the font size doesn't go below 10
         }
 
         

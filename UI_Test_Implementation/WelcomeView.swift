@@ -68,27 +68,27 @@ struct WelcomeView: View {
                                 .cornerRadius(15)
                         }
                         
-                        Button(action: {
-                            print("LEARNED")
-                        }) {
-                            NavigationLink(destination: DeveloperInfoView()) {
-                                HStack {
-                                    Image("ic-cap")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 50)
-                                    Text("About")
-                                        .foregroundColor(.black)
-                                        .font(Font.navTitle)
-                                        .bold()
-                                }
-                            }
-                                .frame(width: 350, height: 100)
-                                .background(Color.purple)
-                                .foregroundColor(.white)
-                                .font(Font.navTitle)
-                                .cornerRadius(15)
-                        }
+//                        Button(action: {
+//                            print("LEARNED")
+//                        }) {
+//                            NavigationLink(destination: DeveloperInfoView()) {
+//                                HStack {
+//                                    Image("ic-cap")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(height: 50)
+//                                    Text("About")
+//                                        .foregroundColor(.black)
+//                                        .font(Font.navTitle)
+//                                        .bold()
+//                                }
+//                            }
+//                                .frame(width: 350, height: 100)
+//                                .background(Color.purple)
+//                                .foregroundColor(.white)
+//                                .font(Font.navTitle)
+//                                .cornerRadius(15)
+//                        }
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
