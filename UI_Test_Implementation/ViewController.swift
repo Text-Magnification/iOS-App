@@ -50,7 +50,7 @@ struct ContentView: View{
                 Image("ic-leaf")
                     .renderingMode(.template)
             }
-            .tag(1) // TextMagnifierView tab
+            .tag(1) // Actual scanner part
             
             NavigationView(){
                 ProfileView()
