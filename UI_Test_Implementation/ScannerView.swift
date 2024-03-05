@@ -10,7 +10,7 @@ import SwiftUI
 import VisionKit
 
 struct DataScannerView: UIViewControllerRepresentable {
-    
+    @EnvironmentObject var sharedSettings: SharedSettings
     @Binding var recognizedItems: [RecognizedItem]
     let recognizedDataType: DataScannerViewController.RecognizedDataType
     let recognizesMultipleItems: Bool
@@ -32,7 +32,7 @@ struct DataScannerView: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(recognizedItems: $recognizedItems)
+        Coordinator(recognizedItems: $recognizedItems, sharedSettings: sharedSettings)
     }
     
     static func dismantleUIViewController(_ uiViewController: DataScannerViewController, coordinator: Coordinator) {
@@ -42,12 +42,13 @@ struct DataScannerView: UIViewControllerRepresentable {
     
     
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
-        @EnvironmentObject var sharedSettings: SharedSettings
+        var sharedSettings: SharedSettings
         @Binding var recognizedItems: [RecognizedItem]
         var textOverlayViews: [UIView] = []
 
-        init(recognizedItems: Binding<[RecognizedItem]>) {
+        init(recognizedItems: Binding<[RecognizedItem]>, sharedSettings: SharedSettings) {
             self._recognizedItems = recognizedItems
+            self.sharedSettings = sharedSettings
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
@@ -59,11 +60,11 @@ struct DataScannerView: UIViewControllerRepresentable {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             recognizedItems.append(contentsOf: addedItems)
             
-            
-            DispatchQueue.main.async {
-                self.updateTextOverlays(in: dataScanner, with: allItems)
+            if (sharedSettings.experimentalMode) {
+                DispatchQueue.main.async {
+                    self.updateTextOverlays(in: dataScanner, with: allItems)
+                }
             }
-            
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
@@ -72,11 +73,11 @@ struct DataScannerView: UIViewControllerRepresentable {
                 !removedItems.contains(where: {$0.id == item.id })
             }
             
-            
-            DispatchQueue.main.async {
-                self.updateTextOverlays(in: dataScanner, with: allItems)
+            if (sharedSettings.experimentalMode) {
+                DispatchQueue.main.async {
+                    self.updateTextOverlays(in: dataScanner, with: allItems)
+                }
             }
-            
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: DataScannerViewController.ScanningUnavailable) {

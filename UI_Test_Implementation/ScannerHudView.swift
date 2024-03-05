@@ -66,10 +66,14 @@ struct ScannerHudView: View {
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()  // Dismiss the current view
                 }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Circle().fill(Color.red))
+                    HStack {
+                        Image(systemName: "chevron.left") // Arrow icon
+                            .foregroundColor(Color(UIColor.systemBlue))
+                        Text("Back") // Text label
+                            .foregroundColor(Color(UIColor.systemBlue))
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                    .cornerRadius(8)
                 }
 
                 Spacer() // Ensures the rest of the content is aligned to the right
