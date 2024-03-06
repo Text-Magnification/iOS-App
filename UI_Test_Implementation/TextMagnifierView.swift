@@ -75,7 +75,7 @@ struct TextMagnifierView: View {
                         
                         Button(action: {
                             // Construct the URL object
-                            if let url = URL(string: "https://www.youtube.com/watch?v=9BMhFmNzw-o") {
+                            if let url = URL(string: "https://www.youtube.com/watch?v=El8aCC-4f-M") {
                                 // Use UIApplication to open the URL
                                 UIApplication.shared.open(url)
                             }
