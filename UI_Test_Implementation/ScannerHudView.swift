@@ -78,8 +78,6 @@ struct ScannerHudView: View {
 
                 Spacer() // Ensures the rest of the content is aligned to the right
                 
-//                Toggle("Multiple Items", isOn: $vm.recognizesMultipleItems)
-                
                 Button("Clear Feed") {
                     vm.clearRecognizedItems() // Calls function to clear recognized items
                 }

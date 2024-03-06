@@ -29,11 +29,15 @@ struct SettingsView: View {
             Color(.white)
                 .ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 20.0) {
+            VStack(alignment: .leading, spacing: 15) {
                 
-                Toggle("Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
-                    
+                Toggle("Detect Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
+                Text("Enabling this allows TextMag to detect multiple texitems at once").font(.caption)
+                Spacer().frame(height: 5)
                 Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
+                Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
+                Text("WARNING: Enabling both 'Show AR Text' & 'Detect Multiple Items' can result in overlapping text!").font(.caption).fontWeight(.bold)
+                
             }
             .foregroundColor(.black)
             .padding()

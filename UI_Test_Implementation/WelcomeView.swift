@@ -38,12 +38,14 @@ struct WelcomeView: View {
                             .font(Font.welcomeText)
                             .foregroundColor(.black)
                             .bold()
+                            
 //                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
                         
-                        Text("v1.0.0-alpha")
+                        Text("v1.1.0-alpha")
                             .font(Font.welcomeTextSmall)
                             .foregroundColor(.black)
                             .bold()
+    
 //                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
                         
                         Spacer()
@@ -68,27 +70,27 @@ struct WelcomeView: View {
                                 .cornerRadius(15)
                         }
                         
-//                        Button(action: {
-//                            print("LEARNED")
-//                        }) {
-//                            NavigationLink(destination: DeveloperInfoView()) {
-//                                HStack {
-//                                    Image("ic-cap")
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(height: 50)
-//                                    Text("About")
-//                                        .foregroundColor(.black)
-//                                        .font(Font.navTitle)
-//                                        .bold()
-//                                }
-//                            }
-//                                .frame(width: 350, height: 100)
-//                                .background(Color.purple)
-//                                .foregroundColor(.white)
-//                                .font(Font.navTitle)
-//                                .cornerRadius(15)
-//                        }
+                        Button(action: {
+                            print("LEARNED")
+                        }) {
+                            NavigationLink(destination: DeveloperInfoView()) {
+                                HStack {
+                                    Image("ic-cap")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 50)
+                                    Text("About")
+                                        .foregroundColor(.black)
+                                        .font(Font.navTitle)
+                                        .bold()
+                                }
+                            }
+                                .frame(width: 350, height: 100)
+                                .background(Color.gray)
+                                .foregroundColor(.white)
+                                .font(Font.navTitle)
+                                .cornerRadius(15)
+                        }
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

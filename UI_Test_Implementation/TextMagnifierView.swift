@@ -30,9 +30,20 @@ struct TextMagnifierView: View {
                 
                 GeometryReader { geometry in
                     VStack(spacing: 8) { //Adjust as needed
+                        Spacer()
+                        Text("Let's get started!")
+                            .font(Font.welcomeText)
+                            .foregroundColor(.black)
+                            .bold()
+                            .padding()
                         
+                        Text("Click 'Scan Text' to continue, or 'Tutorial' to learn more")
+                            .font(Font.welcomeTextSmall)
+                            .foregroundColor(.black)
+                            .bold()
+                            .padding()
+                        Spacer()
                         Button(action: {
-                            print("MAGNIFY SELECTED")
                         }) {
                             NavigationLink(destination: MagnifierView()) {
                                 HStack {
@@ -40,7 +51,7 @@ struct TextMagnifierView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(height: 50)
-                                    Text("Let's go!")
+                                    Text("Scan Text")
                                         .foregroundColor(.black)
                                         .font(Font.navTitle)
                                 }
@@ -54,7 +65,6 @@ struct TextMagnifierView: View {
                         
                         
                         Button(action: {
-                            print("TUTORIAL SELECTED")
                             // Construct the URL object
                             if let url = URL(string: "https://www.youtube.com/watch?v=9BMhFmNzw-o") {
                                 // Use UIApplication to open the URL
@@ -76,7 +86,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
-                        
+                        Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 

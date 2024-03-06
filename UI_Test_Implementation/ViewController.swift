@@ -5,26 +5,6 @@
 //  Created by Daniel Iskandar on 2/18/24.
 //
 
-//struct ContentView: View {
-//    @State private var isShowingWelcomeView: Bool = true
-//
-//    var body: some View {
-//        TabView {
-//            NavigationView {
-//                if isShowingWelcomeView {
-//                    WelcomeView(isShowingWelcomeView: $isShowingWelcomeView)
-//                } else {
-//                    TextMagnifierView()
-//                }
-//            }
-//            .tabItem {
-//                Image(systemName: "house.fill") // Adjust your image
-//            }
-//            // Other tabs...
-//        }
-//    }
-//}
-
 
 import UIKit
 import SwiftUI

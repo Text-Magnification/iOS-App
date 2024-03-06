@@ -17,12 +17,12 @@ extension Font {
     
     static var welcomeText: Font {
         
-        return Font.custom("Circular", size: 40).bold()
+        return Font.custom("Circular", size: 45).bold()
     }
     
     static var welcomeTextSmall: Font {
         
-        return Font.custom("Circular", size: 25)
+        return Font.custom("Circular", size: 20)
     }
     
     static var continueText: Font {
