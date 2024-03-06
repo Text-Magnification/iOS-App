@@ -12,7 +12,7 @@ struct DeveloperInfoView: View {
         ZStack {
             ScrollView {
                 VStack(){
-                    Text("2 students from the University of Michigan attempt to fight Presbyopia and Macular Degeneration with tools to give the visually impaired accessibility through a cross platform text recognition and magnification app.")
+                    Text("4 students from the University of Michigan attempt to fight Presbyopia and Macular Degeneration with tools to give the visually impaired accessibility through a cross platform text recognition and magnification app.")
                         .font(.missionStatementText)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
