@@ -12,35 +12,35 @@ struct DeveloperInfoView: View {
         ZStack {
             ScrollView {
                 VStack(){
-                    Text("4 students from the University of Michigan attempt to fight Presbyopia and Macular Degeneration with tools to give the visually impaired accessibility through a cross platform text recognition and magnification app.")
-                        .font(.missionStatementText)
+                    Text("Four students from the University of Michigan attempt to fight Presbyopia and Macular Degeneration with tools to give the visually impaired accessibility through a cross platform text recognition and magnification app.")
+                        .font(.welcomeTextSmall)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                HStack(alignment: .top) {
-                    Image("img-chesney")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 125)
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("Dr. David R Chesney")
-                            .font(.navTitle)
-                            .foregroundColor(.black)
-                        Text("Teaching Professor, Electrical Engineering and Computer Science")
-                            .font(.navTitle)
-                            .foregroundColor(.black)
-                        Text("Coordinator and program director. Lead the team as an instructor in EECS 495: Software For Accessability.")
-                            .font(.descriptionText)
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.leading)
-                            .padding(.top, 5)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding()
+//                HStack(alignment: .top) {
+//                    Image("img-chesney")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 125)
+//                    VStack(alignment: .leading, spacing: 5) {
+//                        Text("Dr. David R Chesney")
+//                            .font(.navTitle)
+//                            .foregroundColor(.black)
+//                        Text("Teaching Professor, Electrical Engineering and Computer Science")
+//                            .font(.navTitle)
+//                            .foregroundColor(.black)
+//                        Text("Coordinator and program director. Lead the team as an instructor in EECS 495: Software For Accessability.")
+//                            .font(.descriptionText)
+//                            .foregroundColor(.black)
+//                            .multilineTextAlignment(.leading)
+//                            .padding(.top, 5)
+//                    }
+//                }
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .padding()
                 
                 HStack() {
                     Text("iOS Development Team")
@@ -92,6 +92,27 @@ struct DeveloperInfoView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
                 
+                HStack(alignment: .top) {
+                    Image("img-chesney")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 125)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Dr. David R Chesney")
+                            .font(.navTitle)
+                            .foregroundColor(.black)
+                        Text("Teaching Professor, Electrical Engineering and Computer Science")
+                            .font(.navTitle)
+                            .foregroundColor(.black)
+                        Text("Coordinator and program director. Lead the team as an instructor in EECS 495: Software For Accessability.")
+                            .font(.descriptionText)
+                            .foregroundColor(.black)
+                            .multilineTextAlignment(.leading)
+                            .padding(.top, 5)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
             }
             .navigationTitle("About Us")
             .navigationBarTitleDisplayMode(.inline)

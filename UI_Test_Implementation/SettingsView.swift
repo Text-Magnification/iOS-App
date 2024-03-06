@@ -32,7 +32,7 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 15) {
                 
                 Toggle("Detect Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
-                Text("Enabling this allows TextMag to detect multiple texitems at once").font(.caption)
+                Text("Enabling this allows TextMag to detect multiple text items at once").font(.caption)
                 Spacer().frame(height: 5)
                 Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
                 Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
