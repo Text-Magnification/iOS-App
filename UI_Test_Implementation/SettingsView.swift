@@ -44,7 +44,7 @@ struct SettingsView: View {
             .background(Rectangle()
                 .foregroundColor(.white)
                 .cornerRadius(15)
-                .shadow(radius: 15))
+                .shadow(radius: 10))
             .padding()
         }
         .toolbar{

@@ -47,7 +47,7 @@ struct TextMagnifierView: View {
                         .background(Rectangle()
                             .foregroundColor(.white)
                             .cornerRadius(15)
-                            .shadow(radius: 15))
+                            .shadow(radius: 10))
                         .padding()
                         
                         Spacer()
@@ -71,7 +71,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
-                        .shadow(radius: 15)
+                        .shadow(radius: 10)
                         
                         Button(action: {
                             // Construct the URL object
@@ -95,7 +95,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
-                        .shadow(radius: 15)
+                        .shadow(radius: 10)
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

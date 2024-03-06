@@ -95,7 +95,7 @@ struct DataScannerView: UIViewControllerRepresentable {
                 
                 if case let .text(text) = item {
                    // Get bounding box from recognized item data
-                    var boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -150, dy: -50)
+                    var boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -120, dy: -50)
                     
                     // Fix clipping (hopefully)
                     boundingBox.origin.x = max(boundingBox.origin.x, 0)

@@ -41,7 +41,7 @@ struct WelcomeView: View {
                                 .foregroundColor(.black)
                                 .bold()
                             
-                            Text("v0.1.5-alpha")
+                            Text("version 0.1.5-alpha")
                                 .font(Font.welcomeTextSmall)
                                 .foregroundColor(.black)
                                 .bold()
@@ -50,7 +50,7 @@ struct WelcomeView: View {
                         .background(Rectangle()
                             .foregroundColor(.white)
                             .cornerRadius(15)
-                            .shadow(radius: 15))
+                            .shadow(radius: 10))
                         .padding()
                         
                         Button(action: {
@@ -72,7 +72,7 @@ struct WelcomeView: View {
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
                         }
-                        .shadow(radius: 15)
+                        .shadow(radius: 10)
                         
                         Button(action: {
                             print("LEARNED")
@@ -95,7 +95,7 @@ struct WelcomeView: View {
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
                         }
-                        .shadow(radius: 15)
+                        .shadow(radius: 10)
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
