@@ -34,21 +34,24 @@ struct WelcomeView: View {
                     Spacer()
                     VStack(spacing: 8) { // Adjust spacing as needed
                         Spacer()
-                        Text("TextMag")
-                            .font(Font.welcomeText)
-                            .foregroundColor(.black)
-                            .bold()
+                        
+                        VStack {
+                            Text("TextMag")
+                                .font(Font.welcomeText)
+                                .foregroundColor(.black)
+                                .bold()
                             
-//                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
-                        
-                        Text("v1.1.0-alpha")
-                            .font(Font.welcomeTextSmall)
-                            .foregroundColor(.black)
-                            .bold()
-    
-//                            .shadow(color: .gray, radius: 2, x: 0, y: 4)
-                        
-                        Spacer()
+                            Text("v0.1.5-alpha")
+                                .font(Font.welcomeTextSmall)
+                                .foregroundColor(.black)
+                                .bold()
+                        }
+                        .padding()
+                        .background(Rectangle()
+                            .foregroundColor(.white)
+                            .cornerRadius(15)
+                            .shadow(radius: 15))
+                        .padding()
                         
                         Button(action: {
                             self.selectedTab = 1
@@ -69,6 +72,7 @@ struct WelcomeView: View {
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
                         }
+                        .shadow(radius: 15)
                         
                         Button(action: {
                             print("LEARNED")
@@ -91,6 +95,7 @@ struct WelcomeView: View {
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
                         }
+                        .shadow(radius: 15)
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

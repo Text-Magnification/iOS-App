@@ -31,18 +31,27 @@ struct TextMagnifierView: View {
                 GeometryReader { geometry in
                     VStack(spacing: 8) { //Adjust as needed
                         Spacer()
-                        Text("Let's get started!")
-                            .font(Font.welcomeText)
-                            .foregroundColor(.black)
-                            .bold()
-                            .padding()
                         
-                        Text("Click 'Scan Text' to continue, or 'Tutorial' to learn more")
-                            .font(Font.welcomeTextSmall)
-                            .foregroundColor(.black)
-                            .bold()
-                            .padding()
+                        VStack {
+                            Text("Let's get started!")
+                                .font(Font.welcomeText)
+                                .foregroundColor(.black)
+                                .bold()
+                            
+                            Text("Click 'Scan Text' to continue")
+                                .font(Font.welcomeTextSmall)
+                                .foregroundColor(.black)
+                                .bold()
+                        }
+                        .padding()
+                        .background(Rectangle()
+                            .foregroundColor(.white)
+                            .cornerRadius(15)
+                            .shadow(radius: 15))
+                        .padding()
+                        
                         Spacer()
+                        
                         Button(action: {
                         }) {
                             NavigationLink(destination: MagnifierView()) {
@@ -62,7 +71,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
-                        
+                        .shadow(radius: 15)
                         
                         Button(action: {
                             // Construct the URL object
@@ -86,6 +95,7 @@ struct TextMagnifierView: View {
                             .font(Font.navTitle)
                             .cornerRadius(10)
                         }
+                        .shadow(radius: 15)
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

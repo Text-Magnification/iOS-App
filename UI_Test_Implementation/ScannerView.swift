@@ -18,7 +18,7 @@ struct DataScannerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> DataScannerViewController {
         let vc = DataScannerViewController(
             recognizedDataTypes: [recognizedDataType],
-            qualityLevel: .balanced,
+            qualityLevel: .fast,
             recognizesMultipleItems: recognizesMultipleItems,
             isGuidanceEnabled: true,
             isHighlightingEnabled: true
@@ -87,19 +87,36 @@ struct DataScannerView: UIViewControllerRepresentable {
         
         // AR FUNCTIONALITY BELOW
         private func updateTextOverlays(in dataScanner: DataScannerViewController, with recognizedItems: [RecognizedItem]) {
+            
+            let screenSize = UIScreen.main.bounds.size
             removeTextOverlays()
 
             for item in recognizedItems {
                 
                 if case let .text(text) = item {
-                    let boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -50, dy: -50)
+                   // Get bounding box from recognized item data
+                    var boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -50, dy: -50)
                     
+                    // Fix clipping (hopefully)
+                    boundingBox.origin.x = max(boundingBox.origin.x, 0)
+                    boundingBox.origin.y = max(boundingBox.origin.y, 0)
+
+                    if boundingBox.maxX > screenSize.width {
+                        boundingBox.size.width = screenSize.width - boundingBox.origin.x
+                    }
+
+                    if boundingBox.maxY > screenSize.height {
+                        boundingBox.size.height = screenSize.height - boundingBox.origin.y
+                    }
+                    
+                    // Make UITextView
                     let textView = UITextView(frame: boundingBox)
+                    
                     
                     textView.backgroundColor = .clear
                     textView.text = text.transcript
                     
-                    textView.font = UIFont.systemFont(ofSize: calculateFontSize(for: textView, with: text.transcript)) // Dynamic font size
+                    textView.font = UIFont.boldSystemFont(ofSize: calculateFontSize(for: textView, with: text.transcript)) // Dynamic font size
                     
                     
                     textView.isEditable = false
@@ -111,7 +128,6 @@ struct DataScannerView: UIViewControllerRepresentable {
                     let rotationAngle = self.calculateRotationAngle(for: text.bounds)
                     textView.transform = CGAffineTransform(rotationAngle: rotationAngle)
 
-                    
                     dataScanner.view.addSubview(textView)
                     textOverlayViews.append(textView)
                 }
@@ -140,7 +156,7 @@ struct DataScannerView: UIViewControllerRepresentable {
             var fontSize: CGFloat = 24 // Start with a default font size
             var fitsWithinBounds = false
 
-            while fontSize > 10 && !fitsWithinBounds { // Don't go below a minimum font size of 10
+            while fontSize > 7 && !fitsWithinBounds { // Don't go below a minimum font size
                 let font = UIFont.systemFont(ofSize: fontSize)
                 let textAttributes: [NSAttributedString.Key: Any] = [.font: font]
                 let attributedText = NSAttributedString(string: text, attributes: textAttributes)
@@ -154,10 +170,10 @@ struct DataScannerView: UIViewControllerRepresentable {
                 if textRect.size.height <= maxSize.height && textRect.size.width <= maxSize.width {
                     fitsWithinBounds = true
                 } else {
-                    fontSize -= 1 // Reduce the font size and try again
+                    fontSize -= 2 // Reduce the font size and try again
                 }
             }
-            return max(fontSize, 10) // Ensure the font size doesn't go below 10
+            return fontSize
         }
 
         
