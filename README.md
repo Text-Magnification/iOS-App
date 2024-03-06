@@ -1,5 +1,6 @@
 **Welcome to TextMag!**
-\nWe are a digital text enhancement app that aims to aid individuals with Presbyopia. Our software is currently in alpha-stage release
+
+We are a digital text enhancement app that aims to aid individuals with Presbyopia. Our software is currently in alpha-stage release
 
 **Instructions for Installing TextMag:**
 
