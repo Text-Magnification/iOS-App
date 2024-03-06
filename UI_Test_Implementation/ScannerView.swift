@@ -92,15 +92,21 @@ struct DataScannerView: UIViewControllerRepresentable {
             for item in recognizedItems {
                 
                 if case let .text(text) = item {
-                    let boundingBox = self.convertBoundsToCGRect(text.bounds, in: dataScanner.view).insetBy(dx: -20, dy: -20)
+                    let boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -50, dy: -50)
+                    
                     let textView = UITextView(frame: boundingBox)
+                    
                     textView.backgroundColor = .clear
                     textView.text = text.transcript
+                    
                     textView.font = UIFont.systemFont(ofSize: calculateFontSize(for: textView, with: text.transcript)) // Dynamic font size
-                    textView.textAlignment = .center
+                    
+                    
                     textView.isEditable = false
                     textView.isScrollEnabled = false
-                    textView.textContainer.lineBreakMode = .byWordWrapping
+                    
+                    textView.textAlignment = .center
+                    textView.textContainer.lineBreakMode = .byTruncatingTail
                     
                     let rotationAngle = self.calculateRotationAngle(for: text.bounds)
                     textView.transform = CGAffineTransform(rotationAngle: rotationAngle)
@@ -111,36 +117,6 @@ struct DataScannerView: UIViewControllerRepresentable {
                 }
             }
         }
-        
-        // Scrollable version (WIP)
-//        private func updateTextOverlays(in dataScanner: DataScannerViewController, with recognizedItems: [RecognizedItem]) {
-//            removeTextOverlays()
-//
-//            for item in recognizedItems {
-//                if case let .text(text) = item {
-//                    let boundingBox = self.convertBoundsToCGRect(text.bounds, in: dataScanner.view).insetBy(dx: -20, dy: -20)
-//                    let textView = UITextView(frame: boundingBox)
-//                    textView.backgroundColor = .clear
-//                    textView.text = text.transcript
-//                    textView.font = UIFont.systemFont(ofSize: calculateFontSize(for: textView, with: text.transcript))
-//                    textView.textAlignment = .center
-//                    textView.isEditable = false
-//                    textView.isScrollEnabled = true  // Ensure scrolling is enabled
-//                    textView.showsVerticalScrollIndicator = true
-//                    textView.showsHorizontalScrollIndicator = true  // Show scroll indicators as needed
-//                    textView.textContainer.lineBreakMode = .byWordWrapping
-//
-//                    // Adjust content inset if necessary, for padding within the scrollable area
-//                    textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//
-//                    let rotationAngle = self.calculateRotationAngle(for: text.bounds)
-//                    textView.transform = CGAffineTransform(rotationAngle: rotationAngle)
-//
-//                    dataScanner.view.addSubview(textView)
-//                    textOverlayViews.append(textView)
-//                }
-//            }
-//        }
 
         func removeTextOverlays() {
             for view in textOverlayViews {
@@ -158,36 +134,6 @@ struct DataScannerView: UIViewControllerRepresentable {
             let maxY = convertedPoints.map { $0.y }.max() ?? 0
             return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
         }
-        
-//        private func calculateFontSize(for textView: UITextView, with text: String) -> CGFloat {
-//            
-//            // BASIC IMPLEMENTATION
-//            let maxSize = textView.frame.size
-//            
-//            var fontSize: CGFloat = 24 // Start with a default font size
-//
-//            let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
-//            
-//            let attributedText = NSAttributedString(string: text, attributes: textAttributes)
-//            
-//            let textRect = attributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-//
-//            // Reduce font size until the text fits within the bounding box
-//            while textRect.size.height > maxSize.height && fontSize > 10 { // Don't go below a minimum font size
-//                fontSize -= 1
-//                let newAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: fontSize)]
-//                
-//                let newAttributedText = NSAttributedString(string: text, attributes: newAttributes)
-//                
-//                let newTextRect = newAttributedText.boundingRect(with: CGSize(width: maxSize.width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-//
-//                if newTextRect.size.height <= maxSize.height {
-//                    break
-//                }
-//            }
-//
-//            return fontSize
-//        }
         
         private func calculateFontSize(for textView: UITextView, with text: String) -> CGFloat {
             let maxSize = textView.frame.size
@@ -211,7 +157,6 @@ struct DataScannerView: UIViewControllerRepresentable {
                     fontSize -= 1 // Reduce the font size and try again
                 }
             }
-
             return max(fontSize, 10) // Ensure the font size doesn't go below 10
         }
 
