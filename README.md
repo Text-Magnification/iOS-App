@@ -1,3 +1,6 @@
+**Welcome to TextMag!**
+We are a digital text enhancement app that aims to aid individuals with Presbyopia. Our software is currently in alpha-stage release
+
 **Instructions for Installing TextMag:**
 
 Requirements: XCode 10.7 or later, iPhone 11 or higher, MacBook (for running XCode)
