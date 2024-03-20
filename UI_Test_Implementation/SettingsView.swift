@@ -38,6 +38,19 @@ struct SettingsView: View {
                 Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
                 Text("WARNING: Enabling both 'Show AR Text' & 'Detect Multiple Items' can result in overlapping text!").font(.caption).fontWeight(.bold)
                 
+                //Creates toggle button and bounds dark mode toggle state
+                //Then listens for the toggle and deactivates the darkmode
+                Toggle("Light Text Mode", isOn: $sharedSettings.isDarkModeEnabled).font(.title3)
+                //Changes app interface on the root view and sets style to
+                //dark or light. Changes appearance of UI elements across the app
+                    .onChange(of: sharedSettings.isDarkModeEnabled) { isEnabled in
+                        UIApplication.shared.windows.first?.rootViewController?.view.overrideUserInterfaceStyle = isEnabled ? .dark : .light
+                        //This is depreciated but kind of works. To fix the
+                        //warning requires a different strategy.
+                    }
+                Text("Disable this if text is on top of a light background").font(.caption)
+
+                
             }
             .foregroundColor(.black)
             .padding()
@@ -59,7 +72,13 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
+    //FIXED PREVIEW CRASHING ISSUES WITH SettingsView
     static var previews: some View {
-        SettingsView()
+        // Created an instance of SharedSettings
+        let sharedSettings = SharedSettings()
+        
+        // Injected it into SettingsView using the .environmentObject modifier
+        return SettingsView().environmentObject(sharedSettings)
     }
 }
+

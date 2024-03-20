@@ -9,4 +9,6 @@ import Foundation
 class SharedSettings: ObservableObject {
     @Published var multipleItems:Bool = false
     @Published var experimentalMode:Bool = true // I do not like having to do this every time
+    
+    @Published var isDarkModeEnabled:Bool = true 
 }

@@ -41,7 +41,7 @@ struct WelcomeView: View {
                                 .foregroundColor(.black)
                                 .bold()
                             
-                            Text("version 0.1.5-alpha")
+                            Text("version 0.1.6-alpha")
                                 .font(Font.welcomeTextSmall)
                                 .foregroundColor(.black)
                                 .bold()

@@ -59,6 +59,7 @@ struct ContentView: View{
             }
             .tag(2)
         }
+        .accentColor(.purple) // Sets Active Tabview icon color
     }
 }
 
