@@ -75,8 +75,19 @@ struct ScannerHudView: View {
                     .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
                     .cornerRadius(8)
                 }
+                
+                Spacer()
+                
+                Button("Freeze") {
+                    
+                }
+                .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                .background(Color.cyan)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+                
 
-                Spacer() // Ensures the rest of the content is aligned to the right
+                Spacer()
                 
                 Button("Clear Feed") {
                     vm.clearRecognizedItems() // Calls function to clear recognized items
