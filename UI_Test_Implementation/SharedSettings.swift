@@ -18,7 +18,11 @@ class SharedSettings: ObservableObject {
         UIFont.fontNames(forFamilyName: familyName).sorted()
     }
     
-    @Published var fontChoice: UIFont = UIFont(name: "Helvetica", size: 19) ?? UIFont.systemFont(ofSize: 19)
-    @Published var fontIndex: Int = 0
+    static let allFontSizes: [Int] = [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
     
+    @Published var fontChoice: UIFont = UIFont(name: "Helvetica", size: 19) ?? UIFont.systemFont(ofSize: 19)
+    @Published var fontIndex: Int = 139
+    
+    @Published var fontSizeIndex: Int = 5 // Size 19, 0 = sixe 14
+    @Published var fontSize: Int = 19
 }

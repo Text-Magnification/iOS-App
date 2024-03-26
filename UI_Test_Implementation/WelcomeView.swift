@@ -101,7 +101,6 @@ struct WelcomeView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 }
             }
-            
             .toolbar{
                 ToolbarItem(placement: .principal){
                     Text("Home")

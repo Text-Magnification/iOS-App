@@ -18,6 +18,7 @@ struct SettingsView: View {
             UINavigationBar.appearance().scrollEdgeAppearance = appearance // For large titles
         }
     
+    
     var body: some View {
         ZStack {
             Color(.white)
@@ -37,7 +38,20 @@ struct SettingsView: View {
                     }
                             .onChange(of: sharedSettings.fontIndex) { newIndex in
                                 let fontName = SharedSettings.allFonts[newIndex]
-                                sharedSettings.fontChoice = UIFont(name: fontName, size: 19) ?? UIFont.systemFont(ofSize: 19)
+                                sharedSettings.fontChoice = UIFont(name: fontName, size: CGFloat(sharedSettings.fontSize)) ?? UIFont.systemFont(ofSize: CGFloat(sharedSettings.fontSize))
+                            }
+                }
+                
+                Section {
+                    Picker(selection: $sharedSettings.fontSizeIndex, label:
+                            Text("Font Size")) {
+                        ForEach(0 ..< SharedSettings.allFontSizes.count, id: \.self) { index in
+                            Text(String(SharedSettings.allFontSizes[index])).tag(index)
+                        }
+                    }
+                            .onChange(of: sharedSettings.fontSizeIndex) { newIndex in
+                                let fontSize = SharedSettings.allFontSizes[newIndex]
+                                sharedSettings.fontChoice = sharedSettings.fontChoice.withSize(CGFloat(fontSize))
                             }
                 }
                     
