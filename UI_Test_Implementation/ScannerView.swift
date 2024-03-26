@@ -11,6 +11,7 @@ import VisionKit
 
 struct DataScannerView: UIViewControllerRepresentable {
     @EnvironmentObject var sharedSettings: SharedSettings
+    @EnvironmentObject var vm: AppViewModel
     @Binding var recognizedItems: [RecognizedItem]
     let recognizedDataType: DataScannerViewController.RecognizedDataType
     let recognizesMultipleItems: Bool
@@ -28,7 +29,34 @@ struct DataScannerView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: DataScannerViewController, context: Context) {
         uiViewController.delegate = context.coordinator
-        try? uiViewController.startScanning()
+//        try? uiViewController.startScanning()
+        
+        if vm.isScanningFrozen {
+            // Capture a snapshot and display it
+            captureSnapshot(from: uiViewController.view) { snapshot in
+                let imageView = UIImageView(image: snapshot)
+                imageView.frame = uiViewController.view.bounds
+                imageView.tag = 999 // Tag to identify the snapshot view
+                uiViewController.view.addSubview(imageView)
+                uiViewController.stopScanning() // Stop scanning
+            }
+        } 
+        else {
+            // Remove the snapshot view to unfreeze
+            uiViewController.view.subviews.first { $0.tag == 999 }?.removeFromSuperview()
+            try? uiViewController.startScanning() // Resume scanning
+        }
+
+    }
+    
+    func captureSnapshot(from view: UIView, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.main.async {
+            UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+            let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            completion(snapshotImage)
+        }
     }
     
     func makeCoordinator() -> Coordinator {

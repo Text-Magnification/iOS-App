@@ -30,6 +30,7 @@ final class AppViewModel: ObservableObject {
     @Published var scanType: ScanType = .text
     @Published var textContentType: DataScannerViewController.TextContentType?
     @Published var recognizesMultipleItems = false
+    @Published var isScanningFrozen = false
     
     var recognizedDataType: DataScannerViewController.RecognizedDataType {
         scanType == .barcode ? .barcode() : .text(textContentType: textContentType)
