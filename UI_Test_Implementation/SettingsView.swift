@@ -1,9 +1,3 @@
-//
-//  SettingsView.swift
-//  UI_Test_Implementation
-//
-//  Created by Daniel Iskandar on 2/19/24.
-//
 
 import SwiftUI
 
@@ -29,36 +23,53 @@ struct SettingsView: View {
             Color(.white)
                 .ignoresSafeArea()
             
-            VStack(alignment: .leading, spacing: 15) {
+//            VStack(alignment: .leading, spacing: 15) {
                 
-                Toggle("Detect Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
-                Text("Enabling this allows TextMag to detect multiple text items at once").font(.caption)
-                Spacer().frame(height: 5)
-                Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
-                Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
-                Text("WARNING: Enabling both 'Show AR Text' & 'Detect Multiple Items' can result in overlapping text!").font(.caption).fontWeight(.bold)
-                
+                // [TODO]
+            Form {
+                    
+                Section {
+                    Picker(selection: $sharedSettings.fontIndex, label:
+                            Text("Font")) {
+                        ForEach(0 ..< SharedSettings.allFonts.count, id: \.self) { index in
+                            Text(SharedSettings.allFonts[index]).tag(index)
+                        }
+                    }
+                            .onChange(of: sharedSettings.fontIndex) { newIndex in
+                                let fontName = SharedSettings.allFonts[newIndex]
+                                sharedSettings.fontChoice = UIFont(name: fontName, size: 19) ?? UIFont.systemFont(ofSize: 19)
+                            }
+                }
+                    
                 //Creates toggle button and bounds dark mode toggle state
                 //Then listens for the toggle and deactivates the darkmode
-                Toggle("Light Text Mode", isOn: $sharedSettings.isDarkModeEnabled).font(.title3)
-                //Changes app interface on the root view and sets style to
-                //dark or light. Changes appearance of UI elements across the app
-                    .onChange(of: sharedSettings.isDarkModeEnabled) { isEnabled in
-                        UIApplication.shared.windows.first?.rootViewController?.view.overrideUserInterfaceStyle = isEnabled ? .dark : .light
-                        //This is depreciated but kind of works. To fix the
-                        //warning requires a different strategy.
-                    }
-                Text("Disable this if text is on top of a light background").font(.caption)
+                Section {
+                    Toggle("Dark Mode", isOn: $sharedSettings.isDarkModeEnabled).font(.title3)
+                    //Changes app interface on the root view and sets style to
+                    //dark or light. Changes appearance of UI elements across the app
+                        .onChange(of: sharedSettings.isDarkModeEnabled) { isEnabled in
+                            UIApplication.shared.windows.first?.rootViewController?.view.overrideUserInterfaceStyle = isEnabled ? .dark : .light
+                            
+                        }
+                    Text("Enable for dark mode theme").font(.caption)
+                }
+                
 
                 
+                Section {
+                    Toggle("Detect Multiple Items", isOn: $sharedSettings.multipleItems).font(.title3)
+                    Text("Enabling this allows TextMag to detect multiple text items at once").font(.caption)
+                }
+                
+
+                Section {
+                    Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
+                    Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
+                    Text("WARNING: Enabling both 'Show AR Text' & 'Detect Multiple Items' can result in overlapping text!").font(.caption).fontWeight(.bold)
+                }
+                    
             }
-            .foregroundColor(.black)
-            .padding()
-            .background(Rectangle()
-                .foregroundColor(.white)
-                .cornerRadius(15)
-                .shadow(radius: 10))
-            .padding()
+                
         }
         .toolbar{
             ToolbarItem(placement: .principal) {

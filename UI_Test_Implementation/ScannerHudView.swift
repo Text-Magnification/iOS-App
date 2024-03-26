@@ -22,7 +22,7 @@ struct ScannerHudView: View {
         case .cameraNotAvailable:
             Text("Camera not available")
         case .scannerNotAvailable:
-            Text("Scanner not available")
+            Text("No iPhone camera detected")
         case .cameraAccessNotGranted:
             Text("Please grant TextMag camera access!")
         case .notDetermined:
@@ -105,7 +105,7 @@ struct ScannerHudView: View {
                         switch item {
                             
                         case .text(let text):
-                            Text(text.transcript)
+                            Text(text.transcript).font(Font(sharedSettings.fontChoice)) // Use the user-listed font
                             
                         default:
                             Text("Unknown")
