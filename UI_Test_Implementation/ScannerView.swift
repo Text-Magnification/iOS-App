@@ -95,7 +95,7 @@ struct DataScannerView: UIViewControllerRepresentable {
                 
                 if case let .text(text) = item {
                    // Get bounding box from recognized item data
-                    var boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -120, dy: -50)
+                    var boundingBox = self.convertBoundsToCGRect(item.bounds, in: dataScanner.view).insetBy(dx: -110, dy: -50) // original dx: -120, dy: -50
                     
                     // Fix clipping (hopefully)
                     boundingBox.origin.x = max(boundingBox.origin.x, 0)
@@ -113,12 +113,12 @@ struct DataScannerView: UIViewControllerRepresentable {
                     let textView = UITextView(frame: boundingBox)
                     
                     
-                    textView.backgroundColor = .clear
+                    textView.backgroundColor = .clear // Change this to non-clear if debugging/tweaking boundingBox insets
                     textView.text = text.transcript
                     
-                    textView.font = UIFont.boldSystemFont(ofSize: calculateFontSize(for: textView, with: text.transcript)) // Dynamic font size
+                    textView.font = sharedSettings.fontChoice.withSize(calculateFontSize(for: textView, with: text.transcript)) // Dynamic font sizing
                     
-                    
+                    textView.textColor = sharedSettings.ARColor
                     textView.isEditable = false
                     textView.isScrollEnabled = false
                     

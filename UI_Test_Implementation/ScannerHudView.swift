@@ -94,7 +94,7 @@ struct ScannerHudView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    // Bottom half of translucent view --> Displays recognized text
+    // Entire translucent bottom view - notice that "headerView" is placed here at the "top"
     private var bottomContainerView: some View {
         VStack {
             headerView

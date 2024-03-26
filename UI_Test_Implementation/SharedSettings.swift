@@ -17,12 +17,15 @@ class SharedSettings: ObservableObject {
     static let allFonts: [String] = UIFont.familyNames.flatMap { familyName -> [String] in
         UIFont.fontNames(forFamilyName: familyName).sorted()
     }
+    @Published var fontChoice: UIFont = UIFont(name: "Helvetica-Bold", size: 19) ?? UIFont.systemFont(ofSize: 19)
+    @Published var fontIndex: Int = 140 // Helvetica-Bold
     
     static let allFontSizes: [Int] = [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
-    
-    @Published var fontChoice: UIFont = UIFont(name: "Helvetica", size: 19) ?? UIFont.systemFont(ofSize: 19)
-    @Published var fontIndex: Int = 139
-    
-    @Published var fontSizeIndex: Int = 5 // Size 19, 0 = sixe 14
+    @Published var fontSizeIndex: Int = 5 // Size 19
     @Published var fontSize: Int = 19
+    
+    static let allARColorStrings: [String] = ["White", "Black", "Red", "Blue", "Green", "Cyan", "Mint"]
+    static let allARColors: [UIColor] = [.white, .black, .systemRed, .systemBlue, .systemGreen, .cyan, .systemMint]
+    @Published var ARColorIndex: Int = 0 // White
+    @Published var ARColor: UIColor = .white
 }

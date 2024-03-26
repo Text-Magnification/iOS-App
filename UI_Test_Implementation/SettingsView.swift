@@ -24,11 +24,7 @@ struct SettingsView: View {
             Color(.white)
                 .ignoresSafeArea()
             
-//            VStack(alignment: .leading, spacing: 15) {
-                
-                // [TODO]
             Form {
-                    
                 Section {
                     Picker(selection: $sharedSettings.fontIndex, label:
                             Text("Font")) {
@@ -40,9 +36,7 @@ struct SettingsView: View {
                                 let fontName = SharedSettings.allFonts[newIndex]
                                 sharedSettings.fontChoice = UIFont(name: fontName, size: CGFloat(sharedSettings.fontSize)) ?? UIFont.systemFont(ofSize: CGFloat(sharedSettings.fontSize))
                             }
-                }
-                
-                Section {
+                    
                     Picker(selection: $sharedSettings.fontSizeIndex, label:
                             Text("Font Size")) {
                         ForEach(0 ..< SharedSettings.allFontSizes.count, id: \.self) { index in
@@ -50,10 +44,22 @@ struct SettingsView: View {
                         }
                     }
                             .onChange(of: sharedSettings.fontSizeIndex) { newIndex in
-                                let fontSize = SharedSettings.allFontSizes[newIndex]
-                                sharedSettings.fontChoice = sharedSettings.fontChoice.withSize(CGFloat(fontSize))
+                                let newSize = SharedSettings.allFontSizes[newIndex]
+                                sharedSettings.fontChoice = sharedSettings.fontChoice.withSize(CGFloat(newSize))
+                            }
+                    
+                    Picker(selection: $sharedSettings.ARColorIndex, label:
+                            Text("AR Text Color")) {
+                        ForEach(0 ..< SharedSettings.allARColorStrings.count, id: \.self) { index in
+                            Text(SharedSettings.allARColorStrings[index]).tag(index)
+                        }
+                    }
+                            .onChange(of: sharedSettings.ARColorIndex) {newIndex in
+                                let newColor = SharedSettings.allARColors[newIndex] // NOT THE STRINGS THIS TIME, ACTUAL UICOLORS
+                                sharedSettings.ARColor = newColor
                             }
                 }
+                
                     
                 //Creates toggle button and bounds dark mode toggle state
                 //Then listens for the toggle and deactivates the darkmode
@@ -75,7 +81,6 @@ struct SettingsView: View {
                     Text("Enabling this allows TextMag to detect multiple text items at once").font(.caption)
                 }
                 
-
                 Section {
                     Toggle ("Show AR Text (Experimental)", isOn: $sharedSettings.experimentalMode).font(.title3)
                     Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
