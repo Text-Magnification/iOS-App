@@ -78,8 +78,18 @@ struct ScannerHudView: View {
                 
                 Spacer()
                 
+//                Button("Freeze") {
+//                    vm.isScanningFrozen.toggle()
+//                }
                 Button("Freeze") {
-                    vm.isScanningFrozen.toggle()
+                    withAnimation {
+                        if vm.isScanningFrozen {
+                            // Unfreeze by clearing snapshot
+                            vm.cameraSnapshot = nil
+                        }
+                        // Toggle the freeze state
+                        vm.isScanningFrozen.toggle()
+                    }
                 }
                 .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
                 .background(Color.cyan)

@@ -31,33 +31,64 @@ struct DataScannerView: UIViewControllerRepresentable {
         uiViewController.delegate = context.coordinator
 //        try? uiViewController.startScanning()
         
-        if vm.isScanningFrozen {
-            // Capture a snapshot and display it
-            captureSnapshot(from: uiViewController.view) { snapshot in
-                let imageView = UIImageView(image: snapshot)
-                imageView.frame = uiViewController.view.bounds
-                imageView.tag = 999 // Tag to identify the snapshot view
-                uiViewController.view.addSubview(imageView)
-                uiViewController.stopScanning() // Stop scanning
-            }
-        } 
-        else {
-            // Remove the snapshot view to unfreeze
-            uiViewController.view.subviews.first { $0.tag == 999 }?.removeFromSuperview()
-            try? uiViewController.startScanning() // Resume scanning
+        if vm.isScanningFrozen && vm.cameraSnapshot == nil {
+            // Capture a snapshot only if we're freezing and no snapshot has been captured yet
+            uiViewController.stopScanning() // Stop scanning
+            vm.cameraSnapshot = captureSnapshot(from: uiViewController.view)
         }
+
+        if let snapshotImage = vm.cameraSnapshot {
+            // Display the snapshot image to give the appearance of a frozen camera
+            let imageView = UIImageView(image: snapshotImage)
+            imageView.frame = uiViewController.view.bounds
+            imageView.tag = 999  // Use a unique tag to identify the snapshot view
+            // Ensure the snapshot view is added only once
+            if uiViewController.view.viewWithTag(999) == nil {
+                uiViewController.view.addSubview(imageView)
+            }
+        } else {
+            // Remove the snapshot view to "unfreeze"
+            uiViewController.view.viewWithTag(999)?.removeFromSuperview()
+            try? uiViewController.startScanning()
+        }
+
+        
+//        if vm.isScanningFrozen {
+//            // Capture a snapshot and display it
+//            captureSnapshot(from: uiViewController.view) { snapshot in
+//                let imageView = UIImageView(image: snapshot)
+//                imageView.frame = uiViewController.view.bounds
+//                imageView.tag = 999 // Tag to identify the snapshot view
+//                uiViewController.view.addSubview(imageView)
+//                uiViewController.stopScanning() // Stop scanning
+//            }
+//        } 
+//        else {
+//            // Remove the snapshot view to unfreeze
+//            uiViewController.view.subviews.first { $0.tag == 999 }?.removeFromSuperview()
+//            try? uiViewController.startScanning() // Resume scanning
+//        }
 
     }
     
-    func captureSnapshot(from view: UIView, completion: @escaping (UIImage?) -> Void) {
-        DispatchQueue.main.async {
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
-            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-            let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            completion(snapshotImage)
-        }
+//    func captureSnapshot(from view: UIView, completion: @escaping (UIImage?) -> Void) {
+//        DispatchQueue.main.async {
+//            UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+//            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+//            let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            completion(snapshotImage)
+//        }
+//    }
+    
+    func captureSnapshot(from view: UIView) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
+
     
     func makeCoordinator() -> Coordinator {
         Coordinator(recognizedItems: $recognizedItems, sharedSettings: sharedSettings)
