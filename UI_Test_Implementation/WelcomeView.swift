@@ -51,7 +51,7 @@ struct WelcomeView: View {
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                             
-                            Text("version 0.1.6-alpha")
+                            Text("version 0.2.0-beta")
                                 .font(Font.welcomeTextSmall)
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
