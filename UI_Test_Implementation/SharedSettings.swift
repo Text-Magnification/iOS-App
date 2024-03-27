@@ -8,11 +8,18 @@
 import Foundation
 import SwiftUI
 
+import Combine // DarkMode
+
 class SharedSettings: ObservableObject {
     @Published var multipleItems: Bool = false
     @Published var experimentalMode: Bool = true // I do not like having to do this every time
-    @Published var isDarkModeEnabled: Bool = true
     
+    //DarkMode
+    @Published var isDarkModeEnabled: Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeDarkMode, object: nil)
+        }
+    }
     
     static let allFonts: [String] = UIFont.familyNames.flatMap { familyName -> [String] in
         UIFont.fontNames(forFamilyName: familyName).sorted()
@@ -28,4 +35,9 @@ class SharedSettings: ObservableObject {
     static let allARColors: [UIColor] = [.white, .black, .systemRed, .systemBlue, .systemGreen, .cyan, .systemMint]
     @Published var ARColorIndex: Int = 0 // White
     @Published var ARColor: UIColor = .white
+}
+
+//DarkMode
+extension Notification.Name {
+    static let didChangeDarkMode = Notification.Name("didChangeDarkMode")
 }

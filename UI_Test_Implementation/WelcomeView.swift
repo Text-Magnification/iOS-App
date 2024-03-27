@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+enum Theme {
+    static let primary = Color("Primary")
+}
 
 struct WelcomeView: View {
+    // Dark mode
+//    @Environment(\.colorScheme) var colorScheme //Detects current color scheme
+    @EnvironmentObject var sharedSettings: SharedSettings
+    
     @Binding var selectedTab: Int
     
     init(selectedTab: Binding<Int>) {
@@ -27,9 +34,11 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                Color("Background")
+//                Color("Background")
+//                    .ignoresSafeArea()
+                Color(sharedSettings.isDarkModeEnabled ? .black : .white)
                     .ignoresSafeArea()
-            
+
                 GeometryReader { geometry in
                     Spacer()
                     VStack(spacing: 8) { // Adjust spacing as needed
@@ -38,17 +47,18 @@ struct WelcomeView: View {
                         VStack {
                             Text("TextMag")
                                 .font(Font.welcomeText)
-                                .foregroundColor(.black)
+//                                .foregroundColor(.primary)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                             
                             Text("version 0.1.6-alpha")
                                 .font(Font.welcomeTextSmall)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                         }
                         .padding()
                         .background(Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .black : .white)
                             .cornerRadius(15)
                             .shadow(radius: 10))
                         .padding()
@@ -67,7 +77,7 @@ struct WelcomeView: View {
                                     .bold()
                             }
                                 .frame(width: 350, height: 100)
-                                .background(Color.purple)
+                                .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
@@ -90,7 +100,7 @@ struct WelcomeView: View {
                                 }
                             }
                                 .frame(width: 350, height: 100)
-                                .background(Color.gray)
+                                .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
@@ -113,9 +123,11 @@ struct WelcomeView: View {
     }
 }
 
-
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
+        let sharedSettings = SharedSettings()
+        
         WelcomeView(selectedTab: .constant(0))
+            .environmentObject(sharedSettings)
     }
 }

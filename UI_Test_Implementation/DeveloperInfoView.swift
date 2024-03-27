@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct DeveloperInfoView: View {
+    @EnvironmentObject var sharedSettings: SharedSettings
+    
     var body: some View {
         ZStack {
+            Color(sharedSettings.isDarkModeEnabled ? .black : .white)
+                            .ignoresSafeArea()
             ScrollView {
                 VStack(){
                     Text("Four students from the University of Michigan attempt to fight Presbyopia and Macular Degeneration with tools to give the visually impaired accessibility through a cross platform text recognition and magnification app.")
                         .font(.welcomeTextSmall)
-                        .foregroundColor(.black)
+                        .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         .multilineTextAlignment(.center)
                         .padding()
                 }
@@ -31,14 +35,15 @@ struct DeveloperInfoView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 125)
+                    
                     VStack(alignment: .leading, spacing: 5) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Iskandar, Daniel")
                                 .font(.navTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             Text("University of Michigan CS-LSA '25")
                                 .font(.collegeText)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         }
                         .background(Color.gray.opacity(0.15))
                         .padding(.all, 3) // adds space around the text
@@ -46,11 +51,12 @@ struct DeveloperInfoView: View {
                             Rectangle()
                                 .stroke(Color.black, lineWidth: 2)
                             )
+                        
                         Text("Research/project management. Camera integration, image retrieval, and front end design in SwiftUI.")
                             .font(.descriptionText)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
-                            .padding(.top, 0)
+                            .lineLimit(nil)
                         
                             Link(destination: URL(string: "https://www.linkedin.com/in/daniel-iskandar-")!) {
                                 Text("Daniel")
@@ -63,7 +69,7 @@ struct DeveloperInfoView: View {
                             .padding(.horizontal) // So the button doesn't stretch too far on wide screens
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(alignment: .top) {
                     Image("img-justin")
@@ -75,10 +81,10 @@ struct DeveloperInfoView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Lu, Justin")
                                 .font(.navTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             Text("University of Michigan CSE-CoE '24")
                                 .font(.collegeText)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         }
                         .background(Color.gray.opacity(0.15))
                         .cornerRadius(0)
@@ -89,7 +95,7 @@ struct DeveloperInfoView: View {
                             )
                         Text("Research/project management. Apple Vision frameworks, language detection and translation, back end design in SwiftUI.")
                             .font(.descriptionText)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
                             .padding(.top, 5)
                         
@@ -122,10 +128,10 @@ struct DeveloperInfoView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Dong, Antony")
                                 .font(.navTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             Text("University of Michigan CSE-CoE '24")
                                 .font(.collegeText)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .lineLimit(nil)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
@@ -138,7 +144,7 @@ struct DeveloperInfoView: View {
                             )
                         Text("CameraX Jetpack Compose implementation, front end design in Kotlin")
                             .font(.descriptionText)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
                             .padding(.top, 5)
                         
@@ -162,10 +168,10 @@ struct DeveloperInfoView: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Parmar, Siddharth")
                                 .font(.navTitle)
-                                .foregroundColor(.black)
-                            Text("University of Michigan CSE-CoE '24")
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
+                            Text("University of Michigan CS-LSA '24")
                                 .font(.collegeText)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         }
                         .background(Color.gray.opacity(0.15))
                         .cornerRadius(0)
@@ -176,7 +182,7 @@ struct DeveloperInfoView: View {
                             )
                         Text("Android planning, research, and project management, camera integration, text translation, magnification, and app design in Kotlin")
                             .font(.descriptionText)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
                             .padding(.top, 5)
                         
@@ -205,13 +211,13 @@ struct DeveloperInfoView: View {
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Dr. David R Chesney")
                             .font(.navTitle)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         Text("Teaching Professor, Electrical Engineering and Computer Science")
                             .font(.navTitle)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                         Text("Coordinator and program director. Lead the team as an instructor in EECS 495: Software For Accessability.")
                             .font(.descriptionText)
-                            .foregroundColor(.black)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                             .multilineTextAlignment(.leading)
                             .padding(.top, 5)
                     }
@@ -228,7 +234,7 @@ struct DeveloperInfoView: View {
 
 struct DeveloperInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        DeveloperInfoView()
+        DeveloperInfoView().environmentObject(SharedSettings())
     }
 }
 

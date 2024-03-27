@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 
 struct TextMagnifierView: View {
+    @EnvironmentObject var sharedSettings: SharedSettings
     init() {
             // Customize navigation bar appearance
             let appearance = UINavigationBarAppearance()
@@ -35,17 +36,17 @@ struct TextMagnifierView: View {
                         VStack {
                             Text("Let's get started!")
                                 .font(Font.welcomeText)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                             
                             Text("Click 'Scan Text' to continue")
                                 .font(Font.welcomeTextSmall)
-                                .foregroundColor(.black)
+                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                         }
                         .padding()
                         .background(Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .black : .white)
                             .cornerRadius(15)
                             .shadow(radius: 10))
                         .padding()
@@ -66,7 +67,7 @@ struct TextMagnifierView: View {
                                 }
                             }
                             .frame(width: 350, height: 100)
-                            .background(.purple)
+                            .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)
@@ -90,7 +91,7 @@ struct TextMagnifierView: View {
                                     .font(Font.navTitle)
                             }
                             .frame(width: 350, height: 100)
-                            .background(.gray)
+                            .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)
@@ -117,6 +118,6 @@ struct TextMagnifierView: View {
 
 struct TextMagnifierView_Previews: PreviewProvider {
     static var previews: some View {
-        TextMagnifierView()
+        TextMagnifierView().environmentObject(SharedSettings())
     }
 }
