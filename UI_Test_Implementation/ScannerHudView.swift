@@ -79,7 +79,16 @@ struct ScannerHudView: View {
                 Spacer()
                 
                 Button("Freeze") {
+                    vm.frozenRecognizedItems = vm.recognizedItems
+                    sharedSettings.toggleFreeze()
                     
+                    if !sharedSettings.isFrozen {
+                        // When unfreezing, clear the recognized items to resume scanning
+                        print("UNFROZEN")
+                        vm.recognizedItems = []
+                        
+                    }
+
                 }
                 .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
                 .background(Color.cyan)
@@ -112,7 +121,7 @@ struct ScannerHudView: View {
             
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16) {
-                    ForEach(vm.recognizedItems) { item in
+                    ForEach(sharedSettings.isFrozen ? vm.frozenRecognizedItems : vm.recognizedItems) { item in
                         switch item {
                             
                         case .text(let text):

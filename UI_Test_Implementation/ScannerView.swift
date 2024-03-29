@@ -10,6 +10,7 @@ import SwiftUI
 import VisionKit
 
 struct DataScannerView: UIViewControllerRepresentable {
+    @EnvironmentObject var vm: AppViewModel
     @EnvironmentObject var sharedSettings: SharedSettings
     @Binding var recognizedItems: [RecognizedItem]
     let recognizedDataType: DataScannerViewController.RecognizedDataType
@@ -28,11 +29,17 @@ struct DataScannerView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: DataScannerViewController, context: Context) {
         uiViewController.delegate = context.coordinator
-        try? uiViewController.startScanning()
+        if sharedSettings.isFrozen {
+            uiViewController.stopScanning()  // Stop scanning when frozen
+        }
+        else {
+            try? uiViewController.startScanning()  // Resume scanning when not frozen
+        }
+
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(recognizedItems: $recognizedItems, sharedSettings: sharedSettings)
+        Coordinator(recognizedItems: $recognizedItems, sharedSettings: sharedSettings, appViewModel: vm)
     }
     
     static func dismantleUIViewController(_ uiViewController: DataScannerViewController, coordinator: Coordinator) {
@@ -40,15 +47,16 @@ struct DataScannerView: UIViewControllerRepresentable {
         coordinator.removeTextOverlays()
     }
     
-    
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
+        var vm: AppViewModel
         var sharedSettings: SharedSettings
         @Binding var recognizedItems: [RecognizedItem]
         var textOverlayViews: [UIView] = []
 
-        init(recognizedItems: Binding<[RecognizedItem]>, sharedSettings: SharedSettings) {
+        init(recognizedItems: Binding<[RecognizedItem]>, sharedSettings: SharedSettings, appViewModel: AppViewModel) {
             self._recognizedItems = recognizedItems
             self.sharedSettings = sharedSettings
+            self.vm = appViewModel
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
@@ -56,6 +64,7 @@ struct DataScannerView: UIViewControllerRepresentable {
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
+//            guard !sharedSettings.isFrozen else { return }
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             recognizedItems.append(contentsOf: addedItems)
@@ -68,7 +77,10 @@ struct DataScannerView: UIViewControllerRepresentable {
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, didRemove removedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-            
+            if (sharedSettings.isFrozen) {
+                self.updateTextOverlays(in: dataScanner, with: vm.frozenRecognizedItems)
+                return
+            }
             self.recognizedItems = recognizedItems.filter { item in
                 !removedItems.contains(where: {$0.id == item.id })
             }
@@ -78,6 +90,7 @@ struct DataScannerView: UIViewControllerRepresentable {
                     self.updateTextOverlays(in: dataScanner, with: allItems)
                 }
             }
+
         }
         
         func dataScanner(_ dataScanner: DataScannerViewController, becameUnavailableWithError error: DataScannerViewController.ScanningUnavailable) {
@@ -89,6 +102,7 @@ struct DataScannerView: UIViewControllerRepresentable {
         private func updateTextOverlays(in dataScanner: DataScannerViewController, with recognizedItems: [RecognizedItem]) {
             
             let screenSize = UIScreen.main.bounds.size
+            
             removeTextOverlays()
 
             for item in recognizedItems {

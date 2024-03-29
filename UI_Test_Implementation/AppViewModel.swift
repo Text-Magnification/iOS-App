@@ -24,12 +24,19 @@ enum DataScannerAccessStatusType {
 
 @MainActor
 final class AppViewModel: ObservableObject {
-    
+    @EnvironmentObject var sharedSettings: SharedSettings
     @Published var dataScannerAccessStatus: DataScannerAccessStatusType = .notDetermined
     @Published var recognizedItems: [RecognizedItem] = []
     @Published var scanType: ScanType = .text
     @Published var textContentType: DataScannerViewController.TextContentType?
     @Published var recognizesMultipleItems = false
+    
+    // FREEZE
+    var frozenRecognizedItems: [RecognizedItem] = []
+    var itemsToShow: [RecognizedItem] {
+        sharedSettings.isFrozen ? frozenRecognizedItems : recognizedItems
+    }
+    // END FREEZE
     
     var recognizedDataType: DataScannerViewController.RecognizedDataType {
         scanType == .barcode ? .barcode() : .text(textContentType: textContentType)

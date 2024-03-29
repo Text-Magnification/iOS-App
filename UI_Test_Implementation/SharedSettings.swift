@@ -11,6 +11,11 @@ import SwiftUI
 import Combine // DarkMode
 
 class SharedSettings: ObservableObject {
+    @Published var isFrozen = false
+    func toggleFreeze() {
+        isFrozen.toggle()
+    }
+    
     @Published var multipleItems: Bool = false
     @Published var experimentalMode: Bool = true // I do not like having to do this every time
     
