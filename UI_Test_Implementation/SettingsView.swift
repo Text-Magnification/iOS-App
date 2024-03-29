@@ -71,7 +71,7 @@ struct SettingsView: View {
                             UIApplication.shared.windows.first?.rootViewController?.view.overrideUserInterfaceStyle = isEnabled ? .dark : .light
                             
                         }
-                    Text("Enable for dark mode theme").font(.caption)
+                    Text("Toggle dark mode theme").font(.caption)
                 }
                 
 

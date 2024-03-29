@@ -39,14 +39,14 @@ struct TextMagnifierView: View {
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                             
-                            Text("Click 'Scan Text' to continue")
+                            Text("Select 'Scan Text' to continue")
                                 .font(Font.welcomeTextSmall)
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                         }
                         .padding()
                         .background(Rectangle()
-                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .black : .white)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? Color(UIColor.systemGray4) : .white)
                             .cornerRadius(15)
                             .shadow(radius: 10))
                         .padding()
@@ -67,7 +67,7 @@ struct TextMagnifierView: View {
                                 }
                             }
                             .frame(width: 350, height: 100)
-                            .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
+                            .background(sharedSettings.isDarkModeEnabled ? .purple : .purple)
                             .foregroundColor(.white)
                             .font(Font.navTitle)
                             .cornerRadius(10)

@@ -93,13 +93,13 @@ struct ScannerHudView: View {
                 }) {
                     Text(sharedSettings.isFrozen ? "Unfreeze" : "Freeze")
                         .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                        .background(Color.cyan)
+                        .background(.purple)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 
                 Spacer()
-                Spacer().frame(width: 20.20)
+                Spacer().frame(width: 20.25)
                 // CLEAR TEXT BUTTON
                 Button("Clear") {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)

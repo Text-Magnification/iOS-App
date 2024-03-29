@@ -58,12 +58,13 @@ struct WelcomeView: View {
                         }
                         .padding()
                         .background(Rectangle()
-                            .foregroundColor(sharedSettings.isDarkModeEnabled ? .black : .white)
+                            .foregroundColor(sharedSettings.isDarkModeEnabled ? Color(UIColor.systemGray4) : .white)
                             .cornerRadius(15)
                             .shadow(radius: 10))
                         .padding()
                         
                         Button(action: {
+                            UINotificationFeedbackGenerator().notificationOccurred(.success)
                             self.selectedTab = 1
                         }) {
                             HStack {
@@ -77,7 +78,7 @@ struct WelcomeView: View {
                                     .bold()
                             }
                                 .frame(width: 350, height: 100)
-                                .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
+                                .background(sharedSettings.isDarkModeEnabled ? .purple : .purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
                                 .cornerRadius(15)
@@ -85,7 +86,6 @@ struct WelcomeView: View {
                         .shadow(radius: 10)
                         
                         Button(action: {
-                            print("LEARNED")
                         }) {
                             NavigationLink(destination: DeveloperInfoView()) {
                                 HStack {
@@ -100,7 +100,7 @@ struct WelcomeView: View {
                                 }
                             }
                                 .frame(width: 350, height: 100)
-                                .background(sharedSettings.isDarkModeEnabled ? .gray : .purple)
+                                .background(sharedSettings.isDarkModeEnabled ? .gray : .gray)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
                                 .cornerRadius(15)

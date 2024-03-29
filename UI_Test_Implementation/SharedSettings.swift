@@ -21,7 +21,7 @@ class SharedSettings: ObservableObject {
     @Published var experimentalMode: Bool = true // I do not like having to do this every time
     
     //DarkMode
-    @Published var isDarkModeEnabled: Bool = false {
+    @Published var isDarkModeEnabled: Bool = true {
         didSet {
             NotificationCenter.default.post(name: .didChangeDarkMode, object: nil)
         }
