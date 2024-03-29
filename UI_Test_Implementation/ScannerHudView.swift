@@ -62,6 +62,8 @@ struct ScannerHudView: View {
     private var headerView: some View {
         VStack {
             HStack {
+                Spacer().frame(width: 1)
+                
                 // TEMPORARY BACK BUTTON WORKAROUND
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()  // Dismiss the current view
@@ -72,7 +74,7 @@ struct ScannerHudView: View {
                         Text("Back") // Text label
                             .foregroundColor(Color(UIColor.systemBlue))
                     }
-                    .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                     .cornerRadius(8)
                 }
                 
@@ -96,9 +98,8 @@ struct ScannerHudView: View {
                         .cornerRadius(8)
                 }
                 
-
                 Spacer()
-                
+                Spacer().frame(width: 20.20)
                 // CLEAR TEXT BUTTON
                 Button("Clear") {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -108,6 +109,7 @@ struct ScannerHudView: View {
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(8)
+                
 
             }
             .padding(.top)
