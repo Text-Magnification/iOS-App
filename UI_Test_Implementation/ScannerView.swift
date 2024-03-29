@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import VisionKit
+import Combine
 
 struct DataScannerView: UIViewControllerRepresentable {
     @EnvironmentObject var vm: AppViewModel
@@ -50,6 +51,8 @@ struct DataScannerView: UIViewControllerRepresentable {
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
         var vm: AppViewModel
         var sharedSettings: SharedSettings
+        var cancellables: Set<AnyCancellable> = []
+
         @Binding var recognizedItems: [RecognizedItem]
         var textOverlayViews: [UIView] = []
 
@@ -57,15 +60,23 @@ struct DataScannerView: UIViewControllerRepresentable {
             self._recognizedItems = recognizedItems
             self.sharedSettings = sharedSettings
             self.vm = appViewModel
+            
+            super.init()
+            // Set up the subscriber
+            sharedSettings.$shouldRemoveOverlays
+                .receive(on: RunLoop.main)
+                .sink { [weak self] shouldRemove in
+                    if shouldRemove {
+                        self?.removeTextOverlays()
+                        self?.sharedSettings.shouldRemoveOverlays = false // Reset the flag
+                    }
+                }
+                .store(in: &cancellables)
         }
         
-        func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
-//            print("didTapOn \(item)")
-        }
+        func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {}
         
         func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
-//            guard !sharedSettings.isFrozen else { return }
-            
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             recognizedItems.append(contentsOf: addedItems)
             

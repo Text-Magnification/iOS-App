@@ -87,6 +87,7 @@ struct ScannerHudView: View {
                         print("UNFROZEN")
                         vm.recognizedItems = []
                         // TODO: FIND A WAY TO CALL removeTextOverlays() IN COORDINATOR CLASS (WITHIN SCANNERVIEW FILE), OR FIND A WAY TO ACCESS textOverlayViews IN CORODINATOR CLASS
+                        sharedSettings.shouldRemoveOverlays = true
                         
                     }
 

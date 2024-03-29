@@ -11,6 +11,7 @@ import SwiftUI
 import Combine // DarkMode
 
 class SharedSettings: ObservableObject {
+    @Published var shouldRemoveOverlays = false
     @Published var isFrozen = false
     func toggleFreeze() {
         isFrozen.toggle()
