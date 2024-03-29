@@ -78,32 +78,33 @@ struct ScannerHudView: View {
                 
                 Spacer()
                 
-                Button("Freeze") {
+                // FREEZE TEXT BUTTON
+                Button(action: {
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                     vm.frozenRecognizedItems = vm.recognizedItems
                     sharedSettings.toggleFreeze()
                     
                     if !sharedSettings.isFrozen {
-                        // When unfreezing, clear the recognized items to resume scanning
-                        print("UNFROZEN")
                         vm.recognizedItems = []
-                        // TODO: FIND A WAY TO CALL removeTextOverlays() IN COORDINATOR CLASS (WITHIN SCANNERVIEW FILE), OR FIND A WAY TO ACCESS textOverlayViews IN CORODINATOR CLASS
                         sharedSettings.shouldRemoveOverlays = true
-                        
                     }
-
+                }) {
+                    Text(sharedSettings.isFrozen ? "Unfreeze" : "Freeze")
+                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                        .background(Color.cyan)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
-                .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
-                .background(Color.cyan)
-                .foregroundColor(.white)
-                .cornerRadius(8)
                 
 
                 Spacer()
                 
-                Button("Clear Feed") {
+                // CLEAR TEXT BUTTON
+                Button("Clear") {
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                     vm.clearRecognizedItems() // Calls function to clear recognized items
                 }
-                .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(8)
