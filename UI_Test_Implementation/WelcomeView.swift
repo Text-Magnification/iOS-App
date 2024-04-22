@@ -11,7 +11,6 @@ enum Theme {
 }
 
 struct WelcomeView: View {
-    // Dark mode
 //    @Environment(\.colorScheme) var colorScheme //Detects current color scheme
     @EnvironmentObject var sharedSettings: SharedSettings
     
@@ -51,7 +50,7 @@ struct WelcomeView: View {
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
                             
-                            Text("version 0.2.0-beta")
+                            Text("version 0.3.0-Omega")
                                 .font(Font.welcomeTextSmall)
                                 .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
                                 .bold()
@@ -111,6 +110,7 @@ struct WelcomeView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 }
             }
+            
             .toolbar{
                 ToolbarItem(placement: .principal){
                     Text("Home")
@@ -118,6 +118,8 @@ struct WelcomeView: View {
                         .foregroundColor(.white)
                 }
             }
+            
+            
             .navigationBarTitleDisplayMode(.inline)
         }
     }

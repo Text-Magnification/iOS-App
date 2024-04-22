@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 import Combine // DarkMode
 
@@ -41,9 +42,23 @@ class SharedSettings: ObservableObject {
     static let allARColors: [UIColor] = [.white, .black, .systemRed, .systemBlue, .systemGreen, .cyan, .systemMint]
     @Published var ARColorIndex: Int = 0 // White
     @Published var ARColor: UIColor = .white
+    
+    
+    
+//    // Text-to-Speech settings
+//    @Published var ttsEnabled: Bool = false
+//    @Published var autoTTS: Bool = false
+//    @Published var selectedVoiceIdentifier: String = AVSpeechSynthesisVoice.currentLanguageCode()
+//
+//    static let allVoices: [AVSpeechSynthesisVoice] = AVSpeechSynthesisVoice.speechVoices().sorted(by: { $0.language < $1.language })
+//    //back-end settings to hold the state and configuration for TTS but does not
+//    // affect the user interface directly.
+    
 }
 
 //DarkMode
 extension Notification.Name {
     static let didChangeDarkMode = Notification.Name("didChangeDarkMode")
 }
+
+

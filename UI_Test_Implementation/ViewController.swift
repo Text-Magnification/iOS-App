@@ -18,7 +18,8 @@ struct ContentView: View{
                 WelcomeView(selectedTab: $selectedTab)
             }
             .tabItem {
-                Image("ic-house")
+//                Image("ic-house")
+                Image(systemName: "house.fill")
                     .renderingMode(.template)
             }
             .tag(0) //WelcomeView tab
@@ -27,7 +28,8 @@ struct ContentView: View{
                 TextMagnifierView()
             }
             .tabItem {
-                Image("ic-magnifier")
+//                Image("ic-magnifier")
+                Image(systemName: "magnifyingglass")
                     .renderingMode(.template)
             }
             .tag(1) // TextMagnifierView tab
@@ -54,12 +56,31 @@ struct ContentView: View{
                 SettingsView()
             }
             .tabItem {
-                Image("ic-gear")
+//                Image("ic-gear")
+                Image(systemName: "gear")
                     .renderingMode(.template)
             }
             .tag(2)
         }
-        .accentColor(.purple) // Sets Active Tabview icon color
+        .accentColor(.purple) // JUSTIN: Just sets the accentColor don't worry about this
+        
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            appearance.backgroundColor = .lightGray // JUSTIN: Set the tab bar background color
+
+            appearance.stackedLayoutAppearance.normal.iconColor = .red // JUSTIN: Color for non-active tab icons
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.gray] // Not relevant but don't remove or it will slow down/crash
+            
+            
+            // JUSTIN: Just make sure iconColor and titleTextAttributes match
+            // i.e appearance.stackedLayoutAppearance.selected.iconColor = .purple
+            // and appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.purple]
+            appearance.stackedLayoutAppearance.selected.iconColor = .purple // JUSTIN: Changes active tab color
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.purple] // JUSTIN: Ensure this matches with iconColor
+            // Set the appearance for both standard and scrollable states
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 }
 
