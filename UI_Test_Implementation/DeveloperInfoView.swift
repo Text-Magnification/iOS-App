@@ -12,7 +12,7 @@ struct DeveloperInfoView: View {
     
     var body: some View {
         ZStack {
-            Color(sharedSettings.isDarkModeEnabled ? .black : .white)
+            Color(sharedSettings.isDarkModeEnabled ? sharedSettings.DARKTHEME : sharedSettings.THEME)
                             .ignoresSafeArea()
             ScrollView {
                 VStack(){
@@ -24,10 +24,14 @@ struct DeveloperInfoView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
+                VStack {
+                    Spacer().frame(height:50)
+                }
+                
                 HStack() {
                     Text("iOS Development Team")
                         .font(.devTeamText)
-                        .foregroundColor(.purple)
+                        .foregroundColor(.blue)
                         .multilineTextAlignment(.center)
                 }
                 HStack(alignment: .top) {
@@ -62,7 +66,7 @@ struct DeveloperInfoView: View {
                                 Text("Daniel")
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color.purple)
+                                    .background(.blue)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
@@ -103,7 +107,7 @@ struct DeveloperInfoView: View {
                                 Text("Justin")
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color.purple)
+                                    .background(.blue)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
@@ -112,12 +116,15 @@ struct DeveloperInfoView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
+                VStack {
+                    Spacer().frame(height:50)
+                }
                 
                 HStack() {
                     Text("Android Development Team")
                         .font(.devTeamText)
                         .multilineTextAlignment(.center)
-                        .foregroundColor(.purple)
+                        .foregroundColor(.green)
                 }
                 HStack(alignment: .top) {
                     Image("img-antony")
@@ -152,7 +159,7 @@ struct DeveloperInfoView: View {
                                 Text("Antony")
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color.purple)
+                                    .background(.green)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
@@ -190,7 +197,7 @@ struct DeveloperInfoView: View {
                             Text("Siddharth")
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.purple)
+                                .background(.green)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -198,10 +205,14 @@ struct DeveloperInfoView: View {
                     }
                 }
                 
+                VStack {
+                    Spacer().frame(height:50)
+                }
+                
                 HStack() {
                     Text("Coordinator")
                         .font(.devTeamText)
-                        .foregroundColor(.purple)
+                        .foregroundColor(.yellow)
                 }
                 HStack(alignment: .top) {
                     Image("img-chesney")
@@ -225,8 +236,8 @@ struct DeveloperInfoView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
             }
-            .navigationTitle("About Us")
-            .navigationBarTitleDisplayMode(.inline)
+//            .navigationTitle("About Us")
+//            .navigationBarTitleDisplayMode(.inline)
             .padding()
         }.background(.white)
     }

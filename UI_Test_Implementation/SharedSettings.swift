@@ -41,6 +41,18 @@ class SharedSettings: ObservableObject {
     static let allARColors: [UIColor] = [.white, .black, .systemRed, .systemBlue, .systemGreen, .cyan, .systemMint]
     @Published var ARColorIndex: Int = 0 // White
     @Published var ARColor: UIColor = .white
+    
+    // MAIN THEME
+    @Published var THEME = UIColor(red:7/255,green:90/255,blue:98/255,alpha:1)
+    @Published var DARKTHEME = UIColor(red:42/255,green:42/255,blue:42/255,alpha:1)
+    
+    // ICON "LIGHT TOOTHPASTE" COLOR
+    @Published var ICON = UIColor(red: 53/255, green: 194/255, blue: 192/255, alpha: 1)
+    @Published var DARKICON = UIColor(red: 53/255, green: 194/255, blue: 192/255, alpha: 1)
+    
+    // COLORS FOR BUTTONS AND STUFF
+    @Published var CUSTOMCYAN = UIColor(red: 62/255, green: 255/255, blue: 255/255, alpha: 1)
+    @Published var CUSTOMWHITE = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
 }
 
 //DarkMode

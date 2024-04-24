@@ -92,20 +92,20 @@ struct ScannerHudView: View {
                     }
                 }) {
                     Text(sharedSettings.isFrozen ? "Unfreeze" : "Freeze")
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                        .background(.purple)
+                        .padding(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
+                        .background(Color(sharedSettings.ICON))
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 
                 Spacer()
-                Spacer().frame(width: 20.25)
+                Spacer().frame(width: 16.25)
                 // CLEAR TEXT BUTTON
                 Button("Clear") {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     vm.clearRecognizedItems() // Calls function to clear recognized items
                 }
-                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                .padding(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(8)
@@ -117,6 +117,7 @@ struct ScannerHudView: View {
         .padding(.horizontal)
 //        .navigationTitle("Scan")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
     }
     
     // Entire translucent bottom view - notice that "headerView" is placed here at the "top"

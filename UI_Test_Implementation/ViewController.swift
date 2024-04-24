@@ -9,6 +9,53 @@
 import UIKit
 import SwiftUI
 
+struct TabBarModifier: ViewModifier {
+    @EnvironmentObject var sharedSettings: SharedSettings
+
+    func body(content: Content) -> some View {
+        content
+            .onReceive(sharedSettings.$isDarkModeEnabled) { _ in
+                updateTabBarAppearance()
+            }
+    }
+
+    private func updateTabBarAppearance() {
+        let appearance = UITabBarAppearance()
+        // BACKGROUND COLOR
+        appearance.backgroundColor = sharedSettings.isDarkModeEnabled ? sharedSettings.DARKTHEME : sharedSettings.THEME
+        
+        // UNSELECTED ICON COLOR
+        appearance.stackedLayoutAppearance.normal.iconColor = sharedSettings.CUSTOMWHITE
+        // UNSELECTED ICON TEXTATTRIBUTE
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: sharedSettings.CUSTOMWHITE]
+        
+        // ACTIVE ICON
+        appearance.stackedLayoutAppearance.selected.iconColor = sharedSettings.isDarkModeEnabled ? sharedSettings.CUSTOMCYAN : .lightGray
+        // ACTIVE ICON TEXTATTRIBUTE
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: sharedSettings.isDarkModeEnabled ? sharedSettings.CUSTOMCYAN : .lightGray]
+        
+        appearance.shadowImage = nil
+        appearance.shadowColor = nil
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().backgroundColor = sharedSettings.isDarkModeEnabled ? UIColor.black : UIColor.white
+        // Necessary to enforce refresh in some scenarios
+        UIApplication.shared.windows.forEach { window in
+            window.rootViewController?.setNeedsStatusBarAppearanceUpdate()
+            window.subviews.forEach { view in
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+    }
+}
+
+extension View {
+    func applyTabBarAppearance() -> some View {
+        self.modifier(TabBarModifier())
+    }
+}
+
 struct ContentView: View{
     @EnvironmentObject var sharedSettings : SharedSettings
     @State private var selectedTab = 0 //First tab is default
@@ -20,8 +67,9 @@ struct ContentView: View{
             }
             .tabItem {
                 Image("ic-house")
-//                Image(systemName: "house.fill")
                     .renderingMode(.template)
+                    .resizable()
+                    .frame(height:60)
 
             }
             .tag(0) //WelcomeView tab
@@ -31,8 +79,9 @@ struct ContentView: View{
             }
             .tabItem {
                 Image("ic-magnifier")
-//                Image(systemName: "magnifyingglass")
                     .renderingMode(.template)
+                    .resizable()
+                    .frame(height:60)
 
             }
             .tag(1) // TextMagnifierView tab
@@ -45,35 +94,21 @@ struct ContentView: View{
                 Image("ic-gear")
                     .renderingMode(.template)
                     .resizable()
+                    .frame(height:60)
 
             }
             .tag(2)
         }
         
-        .accentColor(.purple) // Sets Active Tabview icon color
-        .onAppear {
-            let appearance = UITabBarAppearance()
-            appearance.backgroundColor = UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)
-            
-            
-            appearance.stackedLayoutAppearance.normal.iconColor = .white // GENERAL ICON COLOR
-            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
-            
-            appearance.stackedLayoutAppearance.selected.iconColor = .white // ACTIVE TABCOLOR
-            
-            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white] // Same color as iconColor
-            
-            UITabBar.appearance().standardAppearance = appearance
-            UITabBar.appearance().scrollEdgeAppearance = appearance
-        }
+        .accentColor(.black) // Sets Active Tabview icon color
+        .applyTabBarAppearance()
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider{
     static var previews: some View {
-        ContentView()
-    }
+        ContentView().environmentObject(SharedSettings())}
 }
 
 

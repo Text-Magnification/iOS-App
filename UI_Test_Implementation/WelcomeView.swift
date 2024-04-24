@@ -14,6 +14,9 @@ struct WelcomeView: View {
     // Dark mode
 //    @Environment(\.colorScheme) var colorScheme //Detects current color scheme
     @EnvironmentObject var sharedSettings: SharedSettings
+    // CUSTOM BUTTON STUFF
+    @State private var isContinuePressed = false
+    @State private var isAboutPressed = false
     
     @Binding var selectedTab: Int
     
@@ -34,7 +37,7 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                Color(sharedSettings.isDarkModeEnabled ? .black : UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1))
+                Color(sharedSettings.isDarkModeEnabled ? sharedSettings.DARKTHEME : sharedSettings.THEME)
                     .ignoresSafeArea()
 
                 GeometryReader { geometry in
@@ -48,7 +51,7 @@ struct WelcomeView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 300, height: 300)
                                 .cornerRadius(50)
-                                .background(Color(sharedSettings.isDarkModeEnabled ? .black : UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)))
+                                .background(Color(sharedSettings.isDarkModeEnabled ? sharedSettings.DARKTHEME : sharedSettings.THEME))
                             
                             // CONTAINING BODY TEXT
                             VStack {
@@ -58,15 +61,10 @@ struct WelcomeView: View {
                                         .font(Font.welcomeText)
                                         .foregroundColor(.white)
                                         .bold()
-                                    
-//                                    Text("version 0.2.0-beta")
-//                                        .font(Font.welcomeTextSmall)
-//                                        .foregroundColor(.white)
-//                                        .bold()
                                 }
                                 .padding()
                                 .background(Rectangle()
-                                    .foregroundColor(Color(UIColor(red: 53/255, green: 194/255, blue: 192/255, alpha: 1)))
+                                    .foregroundColor(Color(sharedSettings.isDarkModeEnabled ? sharedSettings.DARKICON : sharedSettings.ICON))
                                     .cornerRadius(15)
                                     .shadow(radius: 10))
                                 .padding()
@@ -76,49 +74,98 @@ struct WelcomeView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            UINotificationFeedbackGenerator().notificationOccurred(.success)
-                            self.selectedTab = 1
-                        }) {
-                            HStack {
-                                Image("ic-magnifier")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 50)
-                                Text("Continue")
-                                    .foregroundColor(.black)
-                                    .font(Font.navTitle)
-                                    .bold()
-                            }
-                                .frame(width: 350, height: 100)
-                                .background(sharedSettings.isDarkModeEnabled ? .purple : .purple)
-                                .foregroundColor(.white)
-                                .font(Font.navTitle)
-                                .cornerRadius(25)
-                        }
-                        .shadow(radius: 10)
-                        
-                        Button(action: {
-                        }) {
-                            NavigationLink(destination: DeveloperInfoView()) {
-                                HStack {
-                                    Image("ic-cap")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 50)
-                                    Text("About")
+                        // CONTINUE BUTTON
+                        VStack {
+                            ZStack {
+                                
+                                // GLOWING
+                                ZStack {
+                                    Capsule()
+                                        .frame(width: 290, height: 90)
+                                        .foregroundColor(Color(sharedSettings.ICON))
+                                        .blur(radius:4)
+                                    
+                                    Capsule()
+                                        .frame(width: 290, height: 90)
+                                        .foregroundColor(Color(sharedSettings.ICON))
+                                }
+                                
+                                
+                                HStack{
+                                    Image("ic-magnifier").resizable().scaledToFit().frame(height:45)
+                                    
+                                    Text("Continue")
                                         .foregroundColor(.black)
+                                        .padding()
                                         .font(Font.navTitle)
-                                        .bold()
                                 }
                             }
-                                .frame(width: 350, height: 100)
-                                .background(sharedSettings.isDarkModeEnabled ? .gray : .gray)
-                                .foregroundColor(.white)
-                                .font(Font.navTitle)
-                                .cornerRadius(25)
+                            .scaleEffect(isContinuePressed ? 1.05 : 1.0)
+                            .opacity(isContinuePressed ? 0.6 : 1.0)
+                            .blur(radius:isContinuePressed ? 0.75 : 0.0)
+                            .onTapGesture {
+//                                        counter += 1
+                                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                                self.selectedTab = 1
+                            }
+                            .pressEvents {
+                                // On press
+                                withAnimation(.easeInOut(duration: 0.1)) {
+                                    isContinuePressed = true
+                                }
+                            } onRelease: {
+                                withAnimation {
+                                    isContinuePressed = false
+                                }
+                            }
                         }
-                        .shadow(radius: 10)
+                        
+                        Spacer().frame(height:10)
+                        // ABOUT BUTTON
+                        VStack {
+                            ZStack {
+                                // GLOWING
+                                ZStack {
+                                    Capsule()
+                                        .frame(width: 220, height: 80)
+                                        .foregroundColor(.blue)
+                                        .blur(radius:4)
+                                    
+                                    Capsule()
+                                        .frame(width: 220, height: 80)
+                                        .foregroundColor(.blue)
+                                }
+                                NavigationLink(destination: DeveloperInfoView()) {
+                                    
+                                    HStack{
+                                        Image("ic-cap").resizable().scaledToFit().frame(height:45)
+                                        
+                                        Text("About")
+                                            .foregroundColor(.black)
+                                            .padding()
+                                            .font(Font.navTitle)
+                                    }
+                                }
+                            }
+                            .scaleEffect(isAboutPressed ? 1.05 : 1.0)
+                            .opacity(isAboutPressed ? 0.6 : 1.0)
+                            .blur(radius:isAboutPressed ? 0.75 : 0.0)
+                            .onTapGesture {
+                                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                            }
+                            .pressEvents {
+                                // On press
+                                withAnimation(.easeInOut(duration: 0.1)) {
+                                    isAboutPressed = true
+                                }
+                            } onRelease: {
+                                withAnimation {
+                                    isAboutPressed = false
+                                }
+                            }
+                        }
+
+
                         Spacer()
                     }
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)

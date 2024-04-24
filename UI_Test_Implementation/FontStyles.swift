@@ -12,7 +12,7 @@ extension Font {
     
     static var navTitle: Font {
         
-        return Font.custom("Circular", size: 20)
+        return Font.custom("Circular", size: 28)
     }
     
     static var welcomeText: Font {
@@ -22,7 +22,7 @@ extension Font {
     
     static var welcomeTextSmall: Font {
         
-        return Font.custom("Circular", size: 20)
+        return Font.custom("Circular", size: 20).bold()
     }
     
     static var continueText: Font {

@@ -29,6 +29,7 @@
 		6A41D6C02B865AF700CA1437 /* MagnifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */; };
 		B212F0BB2B89B13100A4CAA8 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0B92B89B13100A4CAA8 /* ScannerView.swift */; };
 		B212F0BC2B89B13100A4CAA8 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0B82B89B13100A4CAA8 /* AppViewModel.swift */; };
+		B293AC192BD8E0A100B90644 /* buttonPressActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B293AC182BD8E0A100B90644 /* buttonPressActions.swift */; };
 		B2F367FD2B9643AD008A2D19 /* ScannerHudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F367FC2B9643AD008A2D19 /* ScannerHudView.swift */; };
 		B2F368002B97B113008A2D19 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B212F0B92B89B13100A4CAA8 /* ScannerView.swift */; };
 		B2F368012B97B113008A2D19 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41D6B72B8326FA00CA1437 /* ProfileView.swift */; };
@@ -97,6 +98,7 @@
 		6A41D6BF2B865AF700CA1437 /* MagnifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnifierView.swift; sourceTree = "<group>"; };
 		B212F0B82B89B13100A4CAA8 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		B212F0B92B89B13100A4CAA8 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		B293AC182BD8E0A100B90644 /* buttonPressActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonPressActions.swift; sourceTree = "<group>"; };
 		B2F367FC2B9643AD008A2D19 /* ScannerHudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerHudView.swift; sourceTree = "<group>"; };
 		B2F368192B97B113008A2D19 /* UI_Test_Implementation copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UI_Test_Implementation copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2F3681A2B97B113008A2D19 /* UI_Test_Implementation copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "UI_Test_Implementation copy-Info.plist"; path = "/Users/justinlu/src/eecs495/iOS-App/UI_Test_Implementation copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -181,6 +183,7 @@
 				6A41D6BB2B83274400CA1437 /* WelcomeView.swift */,
 				6A41D6BD2B8529D800CA1437 /* DeveloperInfoView.swift */,
 				B2F3681B2B97CBD1008A2D19 /* SharedSettings.swift */,
+				B293AC182BD8E0A100B90644 /* buttonPressActions.swift */,
 			);
 			path = UI_Test_Implementation;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				6A41D6B42B83267900CA1437 /* SettingsView.swift in Sources */,
 				B2F367FD2B9643AD008A2D19 /* ScannerHudView.swift in Sources */,
 				6A41D6B02B8300EE00CA1437 /* FontStyles.swift in Sources */,
+				B293AC192BD8E0A100B90644 /* buttonPressActions.swift in Sources */,
 				6A41D6BA2B83272A00CA1437 /* TextMagnifierView.swift in Sources */,
 				6A41D6BE2B8529D800CA1437 /* DeveloperInfoView.swift in Sources */,
 				6A41D67D2B82CEF800CA1437 /* SceneDelegate.swift in Sources */,

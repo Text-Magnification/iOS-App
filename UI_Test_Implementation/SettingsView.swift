@@ -8,7 +8,10 @@ struct SettingsView: View {
     init() {
             // Customize navigation bar appearance
             let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor.systemPurple // can use any color
+//            appearance.backgroundColor = UIColor(red:7/255,green:110/255,blue:118/255,alpha:1)
+            appearance.backgroundColor = UIColor(red: 53/255, green: 194/255, blue: 192/255, alpha: 1)
+
+        
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Changes the title color
             appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // If using large titles
             
@@ -21,7 +24,7 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            Color(UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)) // Settings color
+            Color(sharedSettings.isDarkModeEnabled ? sharedSettings.DARKTHEME : sharedSettings.THEME) // Settings color
                 .ignoresSafeArea()
             
             Form {
