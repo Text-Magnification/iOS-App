@@ -115,7 +115,7 @@ struct ScannerHudView: View {
             .padding(.top)
         }
         .padding(.horizontal)
-        .navigationTitle("Scan")
+//        .navigationTitle("Scan")
         .navigationBarTitleDisplayMode(.inline)
     }
     

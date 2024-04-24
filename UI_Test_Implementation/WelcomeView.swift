@@ -11,6 +11,7 @@ enum Theme {
 }
 
 struct WelcomeView: View {
+    // Dark mode
 //    @Environment(\.colorScheme) var colorScheme //Detects current color scheme
     @EnvironmentObject var sharedSettings: SharedSettings
     
@@ -33,34 +34,47 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-//                Color("Background")
-//                    .ignoresSafeArea()
-                Color(sharedSettings.isDarkModeEnabled ? .black : .white)
+                Color(sharedSettings.isDarkModeEnabled ? .black : UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1))
                     .ignoresSafeArea()
 
                 GeometryReader { geometry in
                     Spacer()
                     VStack(spacing: 8) { // Adjust spacing as needed
-                        Spacer()
                         
-                        VStack {
-                            Text("TextMag")
-                                .font(Font.welcomeText)
-//                                .foregroundColor(.primary)
-                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
-                                .bold()
+                        Spacer()
+                        ZStack {
+                            Image("icontest")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 300, height: 300)
+                                .cornerRadius(50)
+                                .background(Color(sharedSettings.isDarkModeEnabled ? .black : UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)))
                             
-                            Text("version 0.3.0-Omega")
-                                .font(Font.welcomeTextSmall)
-                                .foregroundColor(sharedSettings.isDarkModeEnabled ? .white : .black)
-                                .bold()
+                            // CONTAINING BODY TEXT
+                            VStack {
+                                Spacer().frame(height: 250)
+                                VStack {
+                                    Text("TextMag")
+                                        .font(Font.welcomeText)
+                                        .foregroundColor(.white)
+                                        .bold()
+                                    
+//                                    Text("version 0.2.0-beta")
+//                                        .font(Font.welcomeTextSmall)
+//                                        .foregroundColor(.white)
+//                                        .bold()
+                                }
+                                .padding()
+                                .background(Rectangle()
+                                    .foregroundColor(Color(UIColor(red: 53/255, green: 194/255, blue: 192/255, alpha: 1)))
+                                    .cornerRadius(15)
+                                    .shadow(radius: 10))
+                                .padding()
+                            }
                         }
-                        .padding()
-                        .background(Rectangle()
-                            .foregroundColor(sharedSettings.isDarkModeEnabled ? Color(UIColor.systemGray4) : .white)
-                            .cornerRadius(15)
-                            .shadow(radius: 10))
-                        .padding()
+                        
+                        
+                        Spacer()
                         
                         Button(action: {
                             UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -80,7 +94,7 @@ struct WelcomeView: View {
                                 .background(sharedSettings.isDarkModeEnabled ? .purple : .purple)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
-                                .cornerRadius(15)
+                                .cornerRadius(25)
                         }
                         .shadow(radius: 10)
                         
@@ -102,7 +116,7 @@ struct WelcomeView: View {
                                 .background(sharedSettings.isDarkModeEnabled ? .gray : .gray)
                                 .foregroundColor(.white)
                                 .font(Font.navTitle)
-                                .cornerRadius(15)
+                                .cornerRadius(25)
                         }
                         .shadow(radius: 10)
                         Spacer()
@@ -110,16 +124,13 @@ struct WelcomeView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 }
             }
-            
             .toolbar{
                 ToolbarItem(placement: .principal){
-                    Text("Home")
-                        .font(Font.navTitle)
-                        .foregroundColor(.white)
+//                    Text("Home")
+//                        .font(Font.navTitle)
+//                        .foregroundColor(.white)
                 }
             }
-            
-            
             .navigationBarTitleDisplayMode(.inline)
         }
     }

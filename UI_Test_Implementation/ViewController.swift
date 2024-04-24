@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 
 struct ContentView: View{
+    @EnvironmentObject var sharedSettings : SharedSettings
     @State private var selectedTab = 0 //First tab is default
     
     var body: some View {
@@ -18,9 +19,10 @@ struct ContentView: View{
                 WelcomeView(selectedTab: $selectedTab)
             }
             .tabItem {
-//                Image("ic-house")
-                Image(systemName: "house.fill")
+                Image("ic-house")
+//                Image(systemName: "house.fill")
                     .renderingMode(.template)
+
             }
             .tag(0) //WelcomeView tab
             
@@ -28,56 +30,39 @@ struct ContentView: View{
                 TextMagnifierView()
             }
             .tabItem {
-//                Image("ic-magnifier")
-                Image(systemName: "magnifyingglass")
+                Image("ic-magnifier")
+//                Image(systemName: "magnifyingglass")
                     .renderingMode(.template)
+
             }
             .tag(1) // TextMagnifierView tab
             
-//            NavigationView(){
-//                ProfileView()
-//            }
-//            .tabItem {
-//                Image("ic-profile")
-//                    .renderingMode(.template)
-//            }
-//            .tag(2)
-//            
-//            NavigationView{
-//                SavedTextView()
-//            }
-//            .tabItem {
-//                Image("ic-scribble")
-//                    .renderingMode(.template)
-//            }
-//            .tag(3)
             
             NavigationView(){
                 SettingsView()
             }
             .tabItem {
-//                Image("ic-gear")
-                Image(systemName: "gear")
+                Image("ic-gear")
                     .renderingMode(.template)
+                    .resizable()
+
             }
             .tag(2)
         }
-        .accentColor(.purple) // JUSTIN: Just sets the accentColor don't worry about this
         
+        .accentColor(.purple) // Sets Active Tabview icon color
         .onAppear {
             let appearance = UITabBarAppearance()
-            appearance.backgroundColor = .lightGray // JUSTIN: Set the tab bar background color
-
-            appearance.stackedLayoutAppearance.normal.iconColor = .red // JUSTIN: Color for non-active tab icons
-            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.gray] // Not relevant but don't remove or it will slow down/crash
+            appearance.backgroundColor = UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)
             
             
-            // JUSTIN: Just make sure iconColor and titleTextAttributes match
-            // i.e appearance.stackedLayoutAppearance.selected.iconColor = .purple
-            // and appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.purple]
-            appearance.stackedLayoutAppearance.selected.iconColor = .purple // JUSTIN: Changes active tab color
-            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.purple] // JUSTIN: Ensure this matches with iconColor
-            // Set the appearance for both standard and scrollable states
+            appearance.stackedLayoutAppearance.normal.iconColor = .white // GENERAL ICON COLOR
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+            
+            appearance.stackedLayoutAppearance.selected.iconColor = .white // ACTIVE TABCOLOR
+            
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white] // Same color as iconColor
+            
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }

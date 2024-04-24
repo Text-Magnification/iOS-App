@@ -8,8 +8,7 @@ struct SettingsView: View {
     init() {
             // Customize navigation bar appearance
             let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = UIColor.systemRed // can use any color
-//            appearance.backgroundColor = UIColor.systemPurple // can use any color
+            appearance.backgroundColor = UIColor.systemPurple // can use any color
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Changes the title color
             appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // If using large titles
             
@@ -22,7 +21,7 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            Color(.white)
+            Color(UIColor(red: 55/255, green: 32/255, blue: 90/255, alpha: 1)) // Settings color
                 .ignoresSafeArea()
             
             Form {
@@ -87,33 +86,18 @@ struct SettingsView: View {
                     Text("Enabling this allows TextMag to digitally zoom detected text on-screen").font(.caption)
                     Text("WARNING: Enabling both 'Show AR Text' & 'Detect Multiple Items' can result in overlapping text!").font(.caption).fontWeight(.bold)
                 }
-                
-                
-//                // TEXT TO SPEECH HANDLING
-//                Section(header: Text("Text to Speech Settings")) {
-//                    Toggle("Enable Text to Speech", isOn: $sharedSettings.ttsEnabled)
-//                    
-//                    Toggle("Automatically Speak Text on Freeze", isOn: $sharedSettings.ttsEnabled) // Disable if TTS isn't enabled
-//                    
-//                    Picker(selection: $sharedSettings.selectedVoiceIdentifier, label: Text("Voice")) {
-//                        ForEach(SharedSettings.allVoices, id: \.identifier) {
-//                            voice in
-//                            Text("\(voice.name) (\(voice.language))").tag(voice.identifier)
-//                        }
-//                    }.disabled(!sharedSettings.ttsEnabled) // Disable if TTS isn't enabled
-//                }
-//                // TEXT TO SPEECH HANDLING
                     
             }
+            .scrollContentBackground(.hidden)
                 
         }
-        .toolbar{
-            ToolbarItem(placement: .principal) {
-                Text("Settings")
-                    .font(Font.navTitle)
-                    .foregroundColor(.white)
-            }
-        }
+//        .toolbar{
+//            ToolbarItem(placement: .principal) {
+//                Text("Settings")
+//                    .font(Font.navTitle)
+//                    .foregroundColor(.white)
+//            }
+//        }
         .navigationBarTitleDisplayMode(.inline)
     }
 }

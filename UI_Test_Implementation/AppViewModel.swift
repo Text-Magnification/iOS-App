@@ -10,9 +10,6 @@ import Foundation
 import SwiftUI
 import VisionKit
 
-//import AVFoundation
-
-
 enum ScanType: String {
     case barcode, text
 }
@@ -33,8 +30,6 @@ final class AppViewModel: ObservableObject {
     @Published var scanType: ScanType = .text
     @Published var textContentType: DataScannerViewController.TextContentType?
     @Published var recognizesMultipleItems = false
-    
-    
     
     // FREEZE
     var frozenRecognizedItems: [RecognizedItem] = []
@@ -60,9 +55,6 @@ final class AppViewModel: ObservableObject {
     private var isScannerAvailable: Bool {
         DataScannerViewController.isAvailable && DataScannerViewController.isSupported
     }
-    
-    // For Text To Speech
-    private var speechSynthesizer = AVSpeechSynthesizer()
     
     func requestDataScannerAccessStatus() async {
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
@@ -91,12 +83,8 @@ final class AppViewModel: ObservableObject {
         }
     }
     
-    
     func clearRecognizedItems() {
         self.recognizedItems = []
     }
     
-
-    
 }
-
